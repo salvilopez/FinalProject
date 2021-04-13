@@ -3,6 +3,7 @@ package com.ssl.finalproject.dao.impl;
 import com.ssl.finalproject.dao.ExpertDao;
 import com.ssl.finalproject.model.Expert;
 import com.ssl.finalproject.model.Tag;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public class ExpertDaoImpl implements ExpertDao {
 
 

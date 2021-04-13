@@ -13,6 +13,6 @@ import java.util.ArrayList;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return new User("usuario","{noop}usuario", new ArrayList<>());
+        return new User("salvi","{noop}salvi", new ArrayList<>());
     }
 }

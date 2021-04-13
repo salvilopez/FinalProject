@@ -3,10 +3,11 @@ package com.ssl.finalproject.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-@Repository
+@Component
 public class JWTUtil {
     private static final String KEY ="salvilopezronda";
     public String generateToken(UserDetails userDetails){

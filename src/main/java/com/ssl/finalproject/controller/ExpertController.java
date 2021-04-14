@@ -73,16 +73,31 @@ public class ExpertController {
     // http://localhost:8888/welcome?name=David -> Name: David, age: 0
     // http://localhost:8888/welcome?age=28 -> Name: null, age: 28
     // http://localhost:8888/welcome/" -> Whitelabel page
-    // @GetMapping("/welcome")
-    // @ResponseBody
-    // public String welcome(@RequestParam(name="name", required=false, defaultValue="null") String name, @RequestParam(required=false, defaultValue="0") int age) {
-    // return "Name: " + name + ", age: " + age;		}
 
 
 
 
 
+//,, etiqueta,
 
+    @GetMapping("/experts")
+    public List<Expert> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
+                                      // @RequestParam(name="pagina", required=false) String pagina,
+                                      // @RequestParam(name="limite", required=false) String limite,
+                                       @RequestParam(name="modalidad", required=false) String modalidad,
+                                       @RequestParam(name="estado", required=false) String estado){
+
+        if(modalidad!=null) {
+            return expertService.findAllByModalidad(modalidad);
+        }else if(estado!=null) {
+            return expertService.findAllByEstado(estado);
+        }else if(nombre!=null){
+            return expertService.findAllByNombre(nombre);
+        }else{
+            return expertService.findAllExpert();
+        }
+
+    }
 
 
 
@@ -91,11 +106,11 @@ public class ExpertController {
      * Metodo que devuelve una lista de de Expert
      * @return List<Expert>
      */
-    @GetMapping("/experts")
-    public List<Expert> findAllExperts(){
-        log.debug("Rest request all Expert");
-        return expertService.findAllExpert();
-    }
+//    @GetMapping("/experts")
+//    public List<Expert> findAllExperts(){
+//        log.debug("Rest request all Expert");
+//        return expertService.findAllExpert();
+//    }
 
 
 

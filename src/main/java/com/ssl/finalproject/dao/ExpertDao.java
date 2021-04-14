@@ -11,4 +11,11 @@ public interface ExpertDao {
     List<Expert> findAllExperts();
 
     Optional<Expert> findExpertByID(Long id);
+
+    List<Expert> findAllByNombre(String nombre);
+    List<Expert> findAllByModalidad(String modalidad);
+    List<Expert> findAllByEstado(String estado);
+    //List<Expert> findAllByLimite(String limite);
+    //List<Expert> findAllByPagina(String name);
+    //List<Expert> findAllByNombre(String name);
 }

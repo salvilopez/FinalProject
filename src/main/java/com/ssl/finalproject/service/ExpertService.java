@@ -19,4 +19,7 @@ public interface ExpertService {
     void deleteOneExpertById(Long id);
 
     void deleteAllExperts();
-}
+
+    List<Expert> findAllByNombre(String nombre);
+    List<Expert> findAllByModalidad(String modalidad);
+    List<Expert> findAllByEstado(String estado);}

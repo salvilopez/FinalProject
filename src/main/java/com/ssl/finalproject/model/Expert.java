@@ -17,8 +17,8 @@ public class Expert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nombre")
+    private String nombre;
 
     @Column(name = "created_at")
     private Instant created_at;
@@ -90,15 +90,17 @@ public class Expert {
     private String estado;
 
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "expert_tag",
+            joinColumns = {@JoinColumn(name = "expert_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<Tag> tagList= new ArrayList<>();
 
 
-
-    public Expert() {
-    }
-
-
-    public Expert(String name, Instant created_at, Instant updated_at, String estado_motivo, String disponibilidad, String modalidad, Boolean autonomo, Integer contacto_telefono, String contacto_email, String contacto_ciudad, String contacto_linkedin, Double condiciones_porcentaje, Double condiciones_precio_hora, Integer puntuacion, String nif, String credenciales_correo, String credenciales_correo_password, String credenciales_zoom, String credenciales_zoom_password, String fichero_foto, String fichero_cv, String observaciones, String origen, String estado) {
-        this.name = name;
+    public Expert(String nombre, Instant created_at, Instant updated_at, String estado_motivo, String disponibilidad, String modalidad, Boolean autonomo, Integer contacto_telefono, String contacto_email, String contacto_ciudad, String contacto_linkedin, Double condiciones_porcentaje, Double condiciones_precio_hora, Integer puntuacion, String nif, String credenciales_correo, String credenciales_correo_password, String credenciales_zoom, String credenciales_zoom_password, String fichero_foto, String fichero_cv, String observaciones, String origen, String estado) {
+        this.nombre = nombre;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.estado_motivo = estado_motivo;
@@ -124,15 +126,8 @@ public class Expert {
         this.estado = estado;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "expert_tag",
-            joinColumns = {@JoinColumn(name = "expert_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
-    )
-
-    private List<Tag> tagList= new ArrayList<>();
-
+    public Expert() {
+    }
 
     public Long getId() {
         return id;
@@ -142,12 +137,12 @@ public class Expert {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Instant getCreated_at() {
@@ -346,7 +341,7 @@ public class Expert {
     public String toString() {
         return "Expert{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + nombre + '\'' +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", estado_motivo='" + estado_motivo + '\'' +

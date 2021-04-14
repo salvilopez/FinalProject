@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,36 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public void deleteAllExperts() {
-        log.info("deleteAllTags");
+        log.info("deleteAllExperts");
         repository.deleteAll();
     }
+
+    @Override
+    public List<Expert> findAllByNombre(String nombre) {
+        log.info("findAllByNombre");
+        if(nombre!=null) {
+            return expertDao.findAllByNombre(nombre) ;
+        }
+    return new ArrayList<>();
+    }
+
+    @Override
+    public List<Expert> findAllByModalidad(String modalidad) {
+        log.info("findAllByModalidad");
+        if(modalidad!=null) {
+            return expertDao.findAllByModalidad(modalidad);
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Expert> findAllByEstado(String estado) {
+        log.info("findAllByEstado");
+        if(estado!=null) {
+            return expertDao.findAllByEstado(estado);
+        }
+        return new ArrayList<>();
+    }
+
+
 }

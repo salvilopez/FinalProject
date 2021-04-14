@@ -45,4 +45,38 @@ public class ExpertDaoImpl implements ExpertDao {
         }
         return Optional.empty();
     }
+
+    @Override
+    public List<Expert> findAllByNombre(String nombre) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
+        Root<Expert> root = criteria.from(Expert.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("nombre"), nombre));
+        return manager.createQuery(criteria).getResultList();
+    }
+
+    @Override
+    public List<Expert> findAllByModalidad(String modalidad) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
+        Root<Expert> root = criteria.from(Expert.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("modalidad"), modalidad));
+        return manager.createQuery(criteria).getResultList();
+    }
+
+    @Override
+    public List<Expert> findAllByEstado(String estado) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
+        Root<Expert> root = criteria.from(Expert.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("estado"), estado));
+        return manager.createQuery(criteria).getResultList();
+    }
+
+
+
+
 }

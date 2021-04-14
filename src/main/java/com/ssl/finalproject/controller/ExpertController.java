@@ -38,7 +38,7 @@ public class ExpertController {
      * @return ResponseEntity<Expert>
      * @throws URISyntaxException
      */
-    @PostMapping("/expert")
+    @PostMapping("/experts")
     public ResponseEntity<Expert> createExpert(@RequestBody Expert expert) throws URISyntaxException {
         log.debug("Create Expert");
         Expert resultado=null;

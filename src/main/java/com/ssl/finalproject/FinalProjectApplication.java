@@ -30,8 +30,8 @@ public class FinalProjectApplication implements CommandLineRunner {
         Tag tag2 = new Tag("tag2");
         Tag tag3 = new Tag("tag3");
         Tag tag4 = new Tag("tag4");
-        Expert expert1= new Expert("expert1");
-        Expert expert2= new Expert("expert2");
+        Expert expert1= new Expert();
+        Expert expert2= new Expert();
         expert1.getTagList().add(tag1);
 
         expertRepository.save(expert1);

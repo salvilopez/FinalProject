@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class AuthController {
 
-
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -29,19 +29,19 @@ public class AuthController {
     @Autowired
     private JWTUtil jwtUtil;
 
-@PostMapping("/auth")
-public ResponseEntity<AuthenticationResponse> createToken( @RequestBody AuthenticationRequest userRequest){
-try {
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
+    @PostMapping("/auth")
+    public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request) {
+        try {
+            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
+            System.out.println(request);
+            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+            String jwt = jwtUtil.generateToken(userDetails);
 
-    UserDetails userDetails = userDetailsService.loadUserByUsername(userRequest.getUsername());
-
-    String jwt = jwtUtil.generateToken(userDetails);
-    return new ResponseEntity<>(new AuthenticationResponse(jwt),HttpStatus.OK);
-
-}catch (BadCredentialsException e) {
-    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-}
-}
-
+            return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
 }

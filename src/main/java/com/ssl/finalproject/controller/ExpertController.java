@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.net.URI;
@@ -65,6 +66,27 @@ public class ExpertController {
         return ResponseEntity.ok().body(resultado);
     }
 
+
+
+
+    // http://localhost:8888/welcome/?name=David&age=28 -> Name: David, age: 28
+    // http://localhost:8888/welcome?name=David -> Name: David, age: 0
+    // http://localhost:8888/welcome?age=28 -> Name: null, age: 28
+    // http://localhost:8888/welcome/" -> Whitelabel page
+    // @GetMapping("/welcome")
+    // @ResponseBody
+    // public String welcome(@RequestParam(name="name", required=false, defaultValue="null") String name, @RequestParam(required=false, defaultValue="0") int age) {
+    // return "Name: " + name + ", age: " + age;		}
+
+
+
+
+
+
+
+
+
+
     /**
      * Metodo que devuelve una lista de de Expert
      * @return List<Expert>
@@ -74,6 +96,8 @@ public class ExpertController {
         log.debug("Rest request all Expert");
         return expertService.findAllExpert();
     }
+
+
 
     /**
      * devuelve una etiquetas  de la BD filtrando por id

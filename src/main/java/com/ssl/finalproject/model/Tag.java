@@ -23,6 +23,8 @@ public class Tag {
     @JsonIgnoreProperties("tagList")
     private List<Expert> expertList = new ArrayList<>();
 
+    public Tag() {
+    }
 
     public Tag(String name) {
         this.name = name;

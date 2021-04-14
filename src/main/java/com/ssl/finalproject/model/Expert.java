@@ -20,6 +20,8 @@ public class Expert {
     private String name;
 
 
+    public Expert() {
+    }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(

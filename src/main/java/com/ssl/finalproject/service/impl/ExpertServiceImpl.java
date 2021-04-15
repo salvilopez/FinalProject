@@ -98,11 +98,11 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public Optional<List<Expert>> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
         log.info("findAllExpertByTag");
-        if(id!=null){
-         Tag tag= tagDao.findTagByID(id);
-            Optional.of(tag.getExpertList());
-        }
-        return Optional.empty();
+
+        System.out.println("------------------------------------------------------------------------------");
+
+
+      return Optional.of(tagDao.findTagByID(id).getExpertList());
     }
 
     /////////////////////////////////////////////////////////////////////

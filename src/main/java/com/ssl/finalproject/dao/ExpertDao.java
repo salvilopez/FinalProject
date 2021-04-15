@@ -12,5 +12,4 @@ public interface ExpertDao {
     List<Expert>  findAllByModalidad(String modalidad, Integer paginacion,Integer limite);
     List<Expert>  findAllByEstado(String estado, Integer paginacion,Integer limite);
 
-
 }

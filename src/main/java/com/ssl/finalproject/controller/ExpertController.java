@@ -11,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -68,20 +66,6 @@ public class ExpertController {
         Expert resultado = expertService.updateExpert(expert);
         return ResponseEntity.ok().body(resultado);
     }
-
-
-
-
-    // http://localhost:8888/welcome/?name=David&age=28 -> Name: David, age: 28
-    // http://localhost:8888/welcome?name=David -> Name: David, age: 0
-    // http://localhost:8888/welcome?age=28 -> Name: null, age: 28
-    // http://localhost:8888/welcome/" -> Whitelabel page
-
-
-
-
-
-//,, etiqueta,
 
     @GetMapping("/experts")
     public ResponseEntity<List<Expert>> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,

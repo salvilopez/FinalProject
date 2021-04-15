@@ -32,9 +32,6 @@ public class AuthController {
     @PostMapping("/auth")
     public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request) {
         try {
-            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
-            System.out.println(request);
-            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
             String jwt = jwtUtil.generateToken(userDetails);

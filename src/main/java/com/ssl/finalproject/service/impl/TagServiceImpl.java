@@ -6,9 +6,12 @@ import com.ssl.finalproject.repository.TagRepository;
 import com.ssl.finalproject.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.awt.print.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,17 +27,34 @@ public class TagServiceImpl implements TagService {
         this.tagDao = tagDao;
     }
 
+
     @Override
-    public List<Tag> findAllTag() {
-        log.info("findAlltags");
-        return tagDao.findAllTags();
+    public Optional<List<Tag>> findAllByNombre(String nombre, Integer pagination, Integer limite) {
+        log.info("findAllByNombre");
+        List<Tag> tagList=tagDao.findAllByNombre(nombre,pagination,limite);
+        if(tagList.isEmpty())
+            return Optional.empty();
+
+        return Optional.of(tagList);
+    }
+
+    @Override
+    public List<Tag> findAll(Integer pagination, Integer limite) {
+        log.info("findAll");
+        return tagDao.findAll(pagination,limite);
     }
 
     @Override
     public Optional<Tag> findOneTagById(Long id) {
         log.info("findOneTagById");
-        if (id != null && repository.existsById(id))
-            return tagDao.findTagByID(id);
+        if (repository.existsById(id)){
+            Tag tag =tagDao.findTagByID(id);
+            if(tag==null){
+                return Optional.empty();
+            }else{
+                return Optional.of(tag);
+            }
+        }
         return Optional.empty();
     }
 
@@ -71,5 +91,6 @@ public class TagServiceImpl implements TagService {
         repository.deleteAll();
 
     }
+
 
 }

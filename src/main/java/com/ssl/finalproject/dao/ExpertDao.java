@@ -1,21 +1,16 @@
 package com.ssl.finalproject.dao;
 
 import com.ssl.finalproject.model.Expert;
-import com.ssl.finalproject.model.Tag;
-
 import java.util.List;
-import java.util.Optional;
 
 public interface ExpertDao {
 
-    List<Expert> findAllExperts();
+    Expert findExpertByID(Long id);
 
-    Optional<Expert> findExpertByID(Long id);
+    List<Expert> findAllExperts( Integer paginacion,Integer limite);
+    List<Expert> findAllByNombre(String nombre, Integer paginacion,Integer limite);
+    List<Expert>  findAllByModalidad(String modalidad, Integer paginacion,Integer limite);
+    List<Expert>  findAllByEstado(String estado, Integer paginacion,Integer limite);
 
-    List<Expert> findAllByNombre(String nombre);
-    List<Expert> findAllByModalidad(String modalidad);
-    List<Expert> findAllByEstado(String estado);
-    //List<Expert> findAllByLimite(String limite);
-    //List<Expert> findAllByPagina(String name);
-    //List<Expert> findAllByNombre(String name);
+
 }

@@ -96,6 +96,7 @@ public class Expert {
             joinColumns = {@JoinColumn(name = "expert_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
+    @JsonIgnoreProperties("expertList")
     private List<Tag> tagList= new ArrayList<>();
 
 

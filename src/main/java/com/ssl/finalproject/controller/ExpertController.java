@@ -1,8 +1,8 @@
 package com.ssl.finalproject.controller;
 
 import com.ssl.finalproject.model.Expert;
-import com.ssl.finalproject.model.Tag;
 import com.ssl.finalproject.service.ExpertService;
+import com.ssl.finalproject.service.TagService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -10,11 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +27,11 @@ public class ExpertController {
     private final Logger log = LoggerFactory.getLogger(TagController.class);
 
     private final ExpertService expertService;
+    private final TagService tagService;
 
-    public ExpertController(ExpertService expertService) {
+    public ExpertController(ExpertService expertService, TagService tagService) {
         this.expertService = expertService;
+        this.tagService = tagService;
     }
 
 
@@ -81,38 +84,30 @@ public class ExpertController {
 //,, etiqueta,
 
     @GetMapping("/experts")
-    public List<Expert> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
-                                      // @RequestParam(name="pagina", required=false) String pagina,
-                                      // @RequestParam(name="limite", required=false) String limite,
+    public ResponseEntity<List<Expert>> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
                                        @RequestParam(name="modalidad", required=false) String modalidad,
-                                       @RequestParam(name="estado", required=false) String estado){
-
-        if(modalidad!=null) {
-            return expertService.findAllByModalidad(modalidad);
-        }else if(estado!=null) {
-            return expertService.findAllByEstado(estado);
-        }else if(nombre!=null){
-            return expertService.findAllByNombre(nombre);
+                                       @RequestParam(name="id", required=false) Long id,
+                                       @RequestParam(name="estado", required=false) String estado,
+                                       @RequestParam(name="etiqueta", required=false) Long etiqueta,
+                                       @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
+                                       @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite){
+        if(nombre!=null){
+          return ExpertController.controlarOpTList(expertService.findAllByNombre(nombre,pagina,limite));
+        }else if(estado!=null){
+            return ExpertController.controlarOpTList(expertService.findAllByEstado(estado,pagina,limite));
+        }else if(modalidad!=null){
+            return ExpertController.controlarOpTList(expertService.findAllByModalidad(modalidad,pagina,limite));
+        }else if(etiqueta !=null){
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            return ExpertController.controlarOpTList(expertService.findAllExpertByTag(etiqueta,pagina,limite));
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+        }else if(id!=null){
+            return ExpertController.controlarOpTObj(expertService,id);
         }else{
-            return expertService.findAllExpert();
+            return ResponseEntity.ok().body(expertService.findAllExpert(pagina,limite));
         }
 
     }
-
-
-
-
-    /**
-     * Metodo que devuelve una lista de de Expert
-     * @return List<Expert>
-     */
-//    @GetMapping("/experts")
-//    public List<Expert> findAllExperts(){
-//        log.debug("Rest request all Expert");
-//        return expertService.findAllExpert();
-//    }
-
-
 
     /**
      * devuelve una etiquetas  de la BD filtrando por id
@@ -153,5 +148,25 @@ public class ExpertController {
         log.debug("DeleteAll");
         expertService.deleteAllExperts();;
         return  ResponseEntity.noContent().build();
+    }
+
+/////////////********************************Metodos Estaticos ************************//////////////////////////
+    private static ResponseEntity<List<Expert>> controlarOpTObj( ExpertService service, Long id ){
+        Optional<Expert> expertOpt=service.findOneExpertById(id);
+        if (expertOpt.isPresent()){
+            List<Expert>expertList= Arrays.asList(expertOpt.get());
+            return ResponseEntity.ok().body(expertList);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+    private static ResponseEntity<List<Expert>> controlarOpTList(Optional<List<Expert>> optListExpert ){
+        if (optListExpert.isPresent()){
+            return ResponseEntity.ok().body(optListExpert.get());
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }

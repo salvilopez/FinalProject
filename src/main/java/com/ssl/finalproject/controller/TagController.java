@@ -18,6 +18,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/api")
 public class TagController {
 

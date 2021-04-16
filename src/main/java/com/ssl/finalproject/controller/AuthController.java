@@ -40,18 +40,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request) {
+
             if(userService.findByUsernameAndPassword(request.getUsername(),request.getPassword())){
                 UserDetails userDetails = userDetailsService.loadUserByUsernameEncript(request.getUsername(),request.getPassword());
                 String jwt = jwtUtil.generateToken(userDetails);
                 return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
             }
 
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
     @PostMapping("/registro")

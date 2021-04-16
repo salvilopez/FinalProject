@@ -17,14 +17,12 @@ import java.net.PasswordAuthentication;
 @Service
 public class UserServiceImpl implements UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-    final UserRepository repository;
+    @Autowired
+     UserRepository repository;
 
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+     PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
 
     @Override
@@ -38,14 +36,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean findByUsernameAndPassword(String username, String password) {
+        System.out.println("Username"+username);
+        System.out.println("Password"+password);
         log.info("findByUsernameAndPassword");
-        if(!username.isEmpty()&&!password.isEmpty()){
+            System.out.println("primer iff");
                 if(repository.existsUserByUsername(username)){
+                    System.out.println("segundo iff");
                     User user=repository.findUserByUsername(username);
-                    BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-                    return  bcrypt.matches(password, user.getPassword());
+                    System.out.println(user.getUsername());
+                    System.out.println(user.getPassword());
+                    Boolean iguales = passwordEncoder.matches(password,user.getPassword());
+                    System.out.println(iguales);
+                    return iguales;
+              //      BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+             //       return  bcrypt.matches(password, user.getPassword());
                 }
-        }
+
     return false;
     }
+
+
+
 }

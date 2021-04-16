@@ -112,6 +112,8 @@ public class ExpertDaoImpl implements ExpertDao {
         query.select(employee);
         query.where(builder.equal(employee.get("id"), id));
         TypedQuery<Expert> typedQuery = manager.createQuery(query);
+        typedQuery.setMaxResults(limite);
+        typedQuery.setFirstResult(pagination);
         List<Expert> resultList = typedQuery.getResultList();
            return resultList;
     }

@@ -99,10 +99,7 @@ public class ExpertServiceImpl implements ExpertService {
     public Optional<List<Expert>> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
         log.info("findAllExpertByTag");
 
-        System.out.println("------------------------------------------------------------------------------");
-
-
-      return Optional.of(tagDao.findTagByID(id).getExpertList());
+      return Optional.of(expertDao.findAllExpertByTag(id,pagination,limite));
     }
 
     /////////////////////////////////////////////////////////////////////

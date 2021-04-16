@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -36,13 +37,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsernameAndPassword(String username, String password) {
+    public Boolean findByUsernameAndPassword(String username, String password) {
         log.info("findByUsernameAndPassword");
         if(!username.isEmpty()&&!password.isEmpty()){
-                if(repository.existsUserByUsernameAndPassword(username,password)){
-                    return repository.findUserByUsernameAndPassword(username,password);
+                if(repository.existsUserByUsername(username)){
+                    User user=repository.findUserByUsername(username);
+                    BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+                    return  bcrypt.matches(password, user.getPassword());
                 }
         }
-        return null;
+    return false;
     }
 }

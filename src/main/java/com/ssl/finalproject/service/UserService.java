@@ -6,5 +6,5 @@ public interface UserService {
 
     User createUser(User user);
 
-    User findByUsernameAndPassword(String username , String password);
+    Boolean findByUsernameAndPassword(String username , String password);
 }

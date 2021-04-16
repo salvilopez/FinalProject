@@ -35,21 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean findByUsernameAndPassword(String username, String password) {
-        System.out.println("Username"+username);
-        System.out.println("Password"+password);
+    public Boolean findByEmailAndPassword(String email, String password) {
         log.info("findByUsernameAndPassword");
-            System.out.println("primer iff");
-                if(repository.existsUserByUsername(username)){
-                    System.out.println("segundo iff");
-                    User user=repository.findUserByUsername(username);
-                    System.out.println(user.getUsername());
-                    System.out.println(user.getPassword());
-                    Boolean iguales = passwordEncoder.matches(password,user.getPassword());
-                    System.out.println(iguales);
-                    return iguales;
-              //      BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-             //       return  bcrypt.matches(password, user.getPassword());
+                if(repository.existsUserByEmail(email)){
+                    User user=repository.findUserByEmail(email);
+                    return passwordEncoder.matches(password,user.getPassword());
                 }
 
     return false;

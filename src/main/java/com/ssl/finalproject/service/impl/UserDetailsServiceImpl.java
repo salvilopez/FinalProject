@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new User("salvi","{noop}salvi", new ArrayList<>());
     }
 
-    public UserDetails loadUserByUsernameEncript(String username,String password) throws UsernameNotFoundException {
+    public UserDetails loadUserByEmailEncript(String email,String password) throws UsernameNotFoundException {
 
-        return new User(username,password, new ArrayList<>());
+        return new User(email,password, new ArrayList<>());
     }
 
 

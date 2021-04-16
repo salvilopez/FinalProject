@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,9 @@ public class ExpertDaoImpl implements ExpertDao {
     private EntityManager manager;
 
 
-
     @Override
     public Expert findExpertByID(Long id) {
-        if(id!=null) {
+        if (id != null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
@@ -51,7 +52,7 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @Override
     public List<Expert> findAllByNombre(String nombre, Integer paginacion, Integer limite) {
-        if(nombre!=null) {
+        if (nombre != null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
@@ -68,7 +69,7 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @Override
     public List<Expert> findAllByModalidad(String modalidad, Integer paginacion, Integer limite) {
-        if(modalidad!=null) {
+        if (modalidad != null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
@@ -85,7 +86,7 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @Override
     public List<Expert> findAllByEstado(String estado, Integer paginacion, Integer limite) {
-        if(estado!=null) {
+        if (estado != null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
@@ -100,5 +101,21 @@ public class ExpertDaoImpl implements ExpertDao {
         return new ArrayList<>();
     }
 
+    @Override
+    public List<Expert> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
 
+        System.out.println("-- find employees with tasks --");
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Expert> query = builder.createQuery(Expert.class);
+        Root<Expert> employee = query.from(Expert.class);
+        employee.join("expert_tag", JoinType.INNER);
+        query.select(employee);
+        query.where(builder.equal(employee.get("id"), id));
+        TypedQuery<Expert> typedQuery = manager.createQuery(query);
+        List<Expert> resultList = typedQuery.getResultList();
+           return resultList;
+    }
 }
+
+
+

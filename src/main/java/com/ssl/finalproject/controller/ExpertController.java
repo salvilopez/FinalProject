@@ -24,7 +24,6 @@ public class ExpertController {
 
 
     private final Logger log = LoggerFactory.getLogger(TagController.class);
-
     private final ExpertService expertService;
     private final TagService tagService;
 
@@ -40,7 +39,7 @@ public class ExpertController {
      * @return ResponseEntity<Expert>
      * @throws URISyntaxException
      */
-    @PostMapping("/experts")
+    @PostMapping("/expertos")
     public ResponseEntity<Expert> createExpert(@RequestBody Expert expert) throws URISyntaxException {
         log.debug("Create Expert");
         Expert resultado=null;
@@ -57,7 +56,7 @@ public class ExpertController {
      * @param Expert
      * @return ResponseEntity<Expert>
      */
-    @PutMapping(value = "/experts")
+    @PutMapping(value = "/expertos")
     public ResponseEntity<Expert> modifyExpert(@RequestBody Expert expert) {
         log.debug("Modify Expert");
         if (expert.getId()==null) {
@@ -68,7 +67,18 @@ public class ExpertController {
         return ResponseEntity.ok().body(resultado);
     }
 
-    @GetMapping("/experts")
+    /**
+     * Find All  con diferentes filtros y paginacion
+     * @param nombre
+     * @param modalidad
+     * @param id
+     * @param estado
+     * @param etiqueta
+     * @param pagina
+     * @param limite
+     * @return ResponseEntity<List<Expert>>
+     */
+    @GetMapping("/expertos")
     public ResponseEntity<List<Expert>> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
                                        @RequestParam(name="modalidad", required=false) String modalidad,
                                        @RequestParam(name="id", required=false) Long id,
@@ -99,7 +109,7 @@ public class ExpertController {
      * @param id
      * @return ResponseEntity<Expert>
      */
-    @GetMapping("/experts/{id}")
+    @GetMapping("/expertos/{id}")
     public ResponseEntity<Expert> findOneExpert(@PathVariable Long id) {
         log.debug("Rest request a Expert with id: "+id);
         Optional<Expert> expOpt = expertService.findOneExpertById(id);
@@ -114,7 +124,7 @@ public class ExpertController {
      * @param id
      * @return noContent
      */
-    @DeleteMapping(value = "/experts/{id}")
+    @DeleteMapping(value = "/expertos/{id}")
     @ApiOperation(value = "Borra un Expert por id")
     public ResponseEntity<Void> deleteOne(@ApiParam("Clave primaria tags para Eliminarlo")@PathVariable("id") Long id) {
         log.debug("Delete Expert");
@@ -127,7 +137,7 @@ public class ExpertController {
      * @return noContent
      */
     @ApiIgnore
-    @DeleteMapping(value = "/experts")
+    @DeleteMapping(value = "/expertos")
     @ApiOperation(value = "Borra todas los Expert")
     public ResponseEntity<Void> deleteAll() {
         log.debug("DeleteAll");
@@ -136,6 +146,13 @@ public class ExpertController {
     }
 
 /////////////********************************Metodos Estaticos ************************//////////////////////////
+
+    /**
+     * Metodo para Controlar los Opcional de Objetos
+     * @param service
+     * @param id
+     * @return ResponseEntity<List<Expert>>
+     */
     private static ResponseEntity<List<Expert>> controlarOpTObj( ExpertService service, Long id ){
         Optional<Expert> expertOpt=service.findOneExpertById(id);
         if (expertOpt.isPresent()){
@@ -146,6 +163,12 @@ public class ExpertController {
         }
 
     }
+
+    /**
+     * Metodo para Controlar los Opcional de Listas
+     * @param optListExpert
+     * @return ResponseEntity<List<Expert>>
+     */
     private static ResponseEntity<List<Expert>> controlarOpTList(Optional<List<Expert>> optListExpert ){
         if (optListExpert.isPresent()){
             return ResponseEntity.ok().body(optListExpert.get());

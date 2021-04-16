@@ -38,7 +38,7 @@ public class TagController {
      * @return ResponseEntity<Tag>
      * @throws URISyntaxException
      */
-    @PostMapping("/tags")
+    @PostMapping("/etiquetas")
     public ResponseEntity<Tag> createTag(@RequestBody Tag tag) throws URISyntaxException {
         log.debug("Create Task");
         Tag resultado = null;
@@ -56,7 +56,7 @@ public class TagController {
      * @param tag
      * @return ResponseEntity<Tag>
      */
-    @PutMapping(value = "/tags")
+    @PutMapping(value = "/etiquetas")
     public ResponseEntity<Tag> modifyTag(@RequestBody Tag tag) {
         log.debug("Modify Tag");
         if (tag.getId() == null) {
@@ -72,7 +72,7 @@ public class TagController {
      *
      * @return List<Tag>
      */
-    @GetMapping("/tags")
+    @GetMapping("/etiquetas")
     public ResponseEntity<List<Tag>> findTags(@RequestParam(name = "nombre", required = false) String nombre,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
@@ -105,7 +105,7 @@ public class TagController {
      * @param id
      * @return ResponseEntity<Tag>
      */
-    @GetMapping("/tags/{id}")
+    @GetMapping("/etiquetas/{id}")
     public ResponseEntity<Tag> findOneTag(@PathVariable Long id) {
         log.debug("Rest request a Tag with id: " + id);
         Optional<Tag> tagOpt = tagService.findOneTagById(id);
@@ -121,7 +121,7 @@ public class TagController {
      * @param id
      * @return noContent
      */
-    @DeleteMapping(value = "/tags/{id}")
+    @DeleteMapping(value = "/etiquetas/{id}")
     @ApiOperation(value = "Borra un tag por id")
     public ResponseEntity<Void> deleteOne(@ApiParam("Clave primaria tags para Eliminarlo") @PathVariable("id") Long id) {
         log.debug("Delete Tag");
@@ -135,7 +135,7 @@ public class TagController {
      * @return noContent
      */
     @ApiIgnore
-    @DeleteMapping(value = "/tags")
+    @DeleteMapping(value = "/etiquetas")
     @ApiOperation(value = "Borra todas los tags")
     public ResponseEntity<Void> deleteAll() {
         log.debug("DeleteAll");

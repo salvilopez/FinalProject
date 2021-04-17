@@ -2,12 +2,15 @@ package com.ssl.finalproject;
 
 import com.ssl.finalproject.model.Expert;
 import com.ssl.finalproject.model.Tag;
+import com.ssl.finalproject.model.User;
 import com.ssl.finalproject.repository.ExpertRepository;
 import com.ssl.finalproject.repository.TagRepository;
+import com.ssl.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 
@@ -20,6 +23,11 @@ public class FinalProjectApplication implements CommandLineRunner {
 
     @Autowired
     TagRepository tagRepository;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     public static void main(String[] args) {
         SpringApplication.run(FinalProjectApplication.class, args);
@@ -56,5 +64,9 @@ public class FinalProjectApplication implements CommandLineRunner {
         expertRepository.save(expert1);
         expertRepository.save(expert2);
         expertRepository.save(expert3);
+
+        User user= new User("salvi@gmail.com",encoder.encode("salvi"));
+        userRepository.save(user);
+
     }
 }

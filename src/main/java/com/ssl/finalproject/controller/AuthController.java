@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 
 public class AuthController {
 
@@ -42,20 +42,26 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody User user) {
 
-            if(userService.findByEmailAndPassword(user.getEmail(), user.getPassword())){
-                UserDetails userDetails = userDetailsService.loadUserByEmailEncript(user.getEmail(),user.getPassword());
-                String jwt = jwtUtil.generateToken(userDetails);
-                return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
-            }
+        if (userService.findByEmailAndPassword(user.getEmail(), user.getPassword())) {
+            UserDetails userDetails = userDetailsService.loadUserByEmailEncript(user.getEmail(), user.getPassword());
+            String jwt = jwtUtil.generateToken(userDetails);
+            return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
+        }
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+
     @PostMapping("/registro")
     public ResponseEntity<User> registro(@RequestBody User user) {
-        if(ObjectUtils.isEmpty(user)) {
+        if (ObjectUtils.isEmpty(user)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }else {
+        } else {
             return ResponseEntity.ok().body(userService.createUser(user));
         }
     }
+
+
+
+
+
 }

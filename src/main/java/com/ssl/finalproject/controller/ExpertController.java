@@ -81,6 +81,7 @@ public class ExpertController {
      */
     @GetMapping("/expertos")
     public List<Expert> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
+                                       @RequestParam(name="puntuacion", required=false) Integer puntuacion,
                                        @RequestParam(name="modalidad", required=false) String modalidad,
                                        @RequestParam(name="id", required=false) Long id,
                                        @RequestParam(name="estado", required=false) String estado,
@@ -88,7 +89,7 @@ public class ExpertController {
                                        @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                        @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite){
 
-
+        System.out.println(puntuacion);
         System.out.println(nombre);
         System.out.println(modalidad);
         System.out.println(id);
@@ -96,7 +97,9 @@ public class ExpertController {
         System.out.println(etiqueta);
         System.out.println(pagina);
         System.out.println(limite);
-        if(nombre!=null){
+        if(puntuacion!=null){
+           return expertService.findAllExpertByPuntuacion(puntuacion,pagina,limite);
+        }else if(nombre!=null){
           return expertService.findAllByNombre(nombre,pagina,limite);
         }else if(estado!=null){
             return expertService.findAllByEstado(estado,pagina,limite);

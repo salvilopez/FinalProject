@@ -91,7 +91,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("modalidad"), estado));
+            criteria.where(builder.equal(root.get("estado"), estado));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -116,6 +116,25 @@ public class ExpertDaoImpl implements ExpertDao {
         typedQuery.setFirstResult(pagination);
         List<Expert> resultList = typedQuery.getResultList();
            return resultList;
+    }
+
+    @Override
+    public List<Expert> findAllExpertByPuntuacion(Integer puntuacion, Integer paginacion, Integer limite) {
+        if(puntuacion!=null){
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
+            Root<Expert> root = criteria.from(Expert.class);
+            criteria.select(root);
+            criteria.where(builder.equal(root.get("puntuacion"), puntuacion));
+            Query query = manager.createQuery(criteria);
+            query.setMaxResults(limite);//size
+            query.setFirstResult(paginacion);//pagination
+            manager.close();
+            return query.getResultList();
+        }
+
+
+         return new ArrayList<>();
     }
 }
 

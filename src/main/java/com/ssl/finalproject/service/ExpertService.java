@@ -19,7 +19,7 @@ public interface ExpertService {
     void deleteOneExpertById(Long id);
 
     void deleteAllExperts();
-
+    List<Expert> findAllExpertByPuntuacion(Integer puntuacion , Integer paginacion, Integer limite);
     Optional<Expert> findOneExpertById(Long id);
     List<Expert> findAllExpert( Integer pagination,Integer limite);
     List<Expert> findAllByNombre(String nombre, Integer pagination,Integer limite);

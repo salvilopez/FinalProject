@@ -68,6 +68,13 @@ public class ExpertServiceImpl implements ExpertService {
         log.info("deleteAllExperts");
         repository.deleteAll();
     }
+
+    @Override
+    public List<Expert> findAllExpertByPuntuacion(Integer puntuacion, Integer paginacion, Integer limite) {
+        log.info("findAllExpertByPuntuacion");
+        return expertDao.findAllExpertByPuntuacion(puntuacion,paginacion,limite);
+    }
+
     @Override
     public List<Expert>findAllByNombre(String nombre, Integer pagination, Integer limite) {
         log.info("findAllByNombre");
@@ -83,7 +90,7 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public List<Expert> findAllByEstado(String estado, Integer pagination, Integer limite) {
         log.info("findAllByEstado");
-        return expertDao.findAllByModalidad(estado,pagination,limite);
+        return expertDao.findAllByEstado(estado,pagination,limite);
 
     }
 

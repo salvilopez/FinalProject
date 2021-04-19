@@ -12,4 +12,5 @@ public interface ExpertDao {
     List<Expert>  findAllByModalidad(String modalidad, Integer paginacion,Integer limite);
     List<Expert>  findAllByEstado(String estado, Integer paginacion,Integer limite);
     List<Expert> findAllExpertByTag(Long id , Integer pagination, Integer limite);
+    List<Expert> findAllExpertByPuntuacion(Integer puntuacion , Integer paginacion, Integer limite);
 }

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,18 +22,54 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> findAllByNombre(String nombre, Integer pagination, Integer limite) {
+
     if(nombre!=null) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
         Root<Tag> root = criteria.from(Tag.class);
         criteria.select(root);
-        criteria.where(builder.equal(root.get("nombre"), nombre));
+        criteria.where(builder.like(root.get("nombre"),nombre+'%'));
         Query query = manager.createQuery(criteria);
         query.setMaxResults(limite);//size
         query.setFirstResult(pagination);//pagination
         manager.close();
         return query.getResultList();
     }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Tag> findAllByCreador(String creador, Integer pagination, Integer limite) {
+        if(creador!=null) {
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
+            Root<Tag> root = criteria.from(Tag.class);
+            criteria.select(root);
+            criteria.where(builder.like(root.get("creador"),creador+'%'));
+            Query query = manager.createQuery(criteria);
+            query.setMaxResults(limite);//size
+            query.setFirstResult(pagination);//pagination
+            manager.close();
+            return query.getResultList();
+        }
+        return new ArrayList<>();
+    }
+
+
+    @Override
+    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
+        if(fechaCreacion!=null) {
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
+            Root<Tag> root = criteria.from(Tag.class);
+            criteria.select(root);
+            criteria.where(builder.equal(root.get("fechaCreacion"),fechaCreacion));
+            Query query = manager.createQuery(criteria);
+            query.setMaxResults(limite);//size
+            query.setFirstResult(pagination);//pagination
+            manager.close();
+            return query.getResultList();
+        }
         return new ArrayList<>();
     }
 

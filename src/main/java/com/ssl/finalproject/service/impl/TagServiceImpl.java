@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.awt.print.Pageable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,8 +82,14 @@ public class TagServiceImpl implements TagService {
         if (id != null)
             repository.deleteById(id);
     }
-
-
+    @Override
+     public List<Tag> findAllByCreador(String creador, Integer pagination,Integer limite){
+        return  tagDao.findAllByCreador(creador,pagination,limite);
+    }
+    @Override
+    List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite){
+        return  tagDao.findAllByFechaCreacion(fechaCreacion,pagination,limite);
+    }
 
     @Override
     public void deleteAllTags() {

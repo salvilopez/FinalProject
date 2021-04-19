@@ -2,6 +2,7 @@ package com.ssl.finalproject.controller;
 
 import com.ssl.finalproject.model.Tag;
 import com.ssl.finalproject.service.TagService;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -74,15 +76,31 @@ public class TagController {
      */
     @GetMapping("/etiquetas")
     public List<Tag> findTags(@RequestParam(name = "nombre", required = false) String nombre,
+     //TODO esto lo pongo como string ya que como es una relacion necesaria para filtrar en el front, y en
+     //TODO  los requisitos ni venia el atributo , ni dijeron que habia que hacer la relacion
+                                              @RequestParam(name = "creador", required = false) String creador,
+                                              @RequestParam(name = "fechaCreacion", required = false) String fechaCreacion,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                               @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) {
-        if (id != null) {
+
+
+
+        if (fechaCreacion != null) {
+            return tagService.findAllByFechaCreacion( fechaCreacion, pagination ,limite);
+
+
+        }else if (creador != null) {
+
+            return tagService.findAllByCreador( creador, pagination ,limite);
+
+        }else  if (id != null) {
             Optional<Tag> optTag = tagService.findOneTagById(id);
             List<Tag> tagList = Arrays.asList(optTag.get());
 
         } else if (nombre != null) {
-            return tagService.findAllByNombre(nombre, pagina, limite);
+
+            return tagService.findAllByNombre(nombre, pagina, limite);;
 
         }
             return tagService.findAll(pagina, limite);

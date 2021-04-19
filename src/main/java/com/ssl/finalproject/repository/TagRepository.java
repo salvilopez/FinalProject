@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.awt.print.Pageable;
 @Repository
 public interface TagRepository extends JpaRepository<Tag,Long> {
+    Boolean existsTagByNombre(String nombre);
 }

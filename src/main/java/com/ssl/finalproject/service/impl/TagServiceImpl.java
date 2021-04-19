@@ -60,6 +60,9 @@ public class TagServiceImpl implements TagService {
         if (ObjectUtils.isEmpty(tag))
             return null;
 
+        if(repository.existsTagByNombre(tag.getNombre()))
+            return null;
+
         return repository.save(tag);
     }
 

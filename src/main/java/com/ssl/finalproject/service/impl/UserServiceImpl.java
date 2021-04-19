@@ -29,9 +29,14 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         log.info("createUser");
         if(ObjectUtils.isEmpty(user))
-        return null;
+            return null;
+
+        if(repository.existsUserByEmail(user.getEmail())){
+            return null;
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return repository.save(user);
+            return repository.save(user);
+
     }
 
     @Override
@@ -41,8 +46,7 @@ public class UserServiceImpl implements UserService {
                     User user=repository.findUserByEmail(email);
                     return passwordEncoder.matches(password,user.getPassword());
                 }
-
-    return false;
+        return false;
     }
 
 

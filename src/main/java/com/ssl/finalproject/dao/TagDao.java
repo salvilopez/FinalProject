@@ -8,4 +8,5 @@ public interface TagDao {
     List<Tag> findAllByNombre(String nombre, Integer pagination,Integer limite);
     Tag findTagByID(Long id);
     List<Tag> findAll(Integer pagination,Integer limite );
+
 }

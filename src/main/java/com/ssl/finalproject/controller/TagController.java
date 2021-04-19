@@ -73,30 +73,23 @@ public class TagController {
      * @return List<Tag>
      */
     @GetMapping("/etiquetas")
-    public ResponseEntity<List<Tag>> findTags(@RequestParam(name = "nombre", required = false) String nombre,
+    public List<Tag> findTags(@RequestParam(name = "nombre", required = false) String nombre,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                               @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) {
-        if(id!=null){
-            Optional<Tag>optTag=tagService.findOneTagById(id);
-            if(optTag.isPresent()){
-                List<Tag>tagList= Arrays.asList(optTag.get());
-                return ResponseEntity.ok().body(tagList);
-            }else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        }else if (nombre != null) {
-            Optional<List<Tag>> pageTagOpt = tagService.findAllByNombre(nombre, pagina, limite);
-            if (pageTagOpt.isPresent()) {
-                return ResponseEntity.ok().body(pageTagOpt.get());
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } else {
-            List<Tag> pageTag = tagService.findAll(pagina, limite);
-            return ResponseEntity.ok().body(pageTag);
+        if (id != null) {
+            Optional<Tag> optTag = tagService.findOneTagById(id);
+            List<Tag> tagList = Arrays.asList(optTag.get());
+
+        } else if (nombre != null) {
+            return tagService.findAllByNombre(nombre, pagina, limite);
+
         }
+            return tagService.findAll(pagina, limite);
+
     }
+
+
 
 
     /**

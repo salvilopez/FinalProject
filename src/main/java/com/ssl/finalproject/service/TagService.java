@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public interface TagService {
 
-    Optional<List<Tag>> findAllByNombre(String nombre, Integer pagination,Integer limite);
+    List<Tag> findAllByNombre(String nombre, Integer pagination,Integer limite);
     List<Tag> findAll(Integer pagination,Integer limite );
 
     Optional<Tag> findOneTagById(Long id);

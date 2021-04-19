@@ -29,13 +29,9 @@ public class TagServiceImpl implements TagService {
 
 
     @Override
-    public Optional<List<Tag>> findAllByNombre(String nombre, Integer pagination, Integer limite) {
+    public List<Tag> findAllByNombre(String nombre, Integer pagination, Integer limite) {
         log.info("findAllByNombre");
-        List<Tag> tagList=tagDao.findAllByNombre(nombre,pagination,limite);
-        if(tagList.isEmpty())
-            return Optional.empty();
-
-        return Optional.of(tagList);
+        return tagDao.findAllByNombre(nombre,pagination,limite);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.ssl.finalproject.dao.impl;
 
 import com.ssl.finalproject.dao.ExpertDao;
 import com.ssl.finalproject.model.Expert;
+import com.ssl.finalproject.model.Tag;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @PersistenceContext
     private EntityManager manager;
+
 
 
     @Override
@@ -57,7 +59,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("nombre"), nombre));
+            criteria.where(builder.like(root.get("nombre"), nombre+'%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -74,7 +76,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("modalidad"), modalidad));
+            criteria.where(builder.like(root.get("modalidad"), modalidad+'%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -91,7 +93,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("estado"), estado));
+            criteria.where(builder.like(root.get("estado"), estado+'%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -103,23 +105,36 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @Override
     public List<Expert> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
+if(id!=null){
 
-        System.out.println("-- find employees with tasks --");
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Expert> query = builder.createQuery(Expert.class);
-        Root<Expert> employee = query.from(Expert.class);
-        employee.join("expert_tag", JoinType.INNER);
-        query.select(employee);
-        query.where(builder.equal(employee.get("id"), id));
-        TypedQuery<Expert> typedQuery = manager.createQuery(query);
-        typedQuery.setMaxResults(limite);
-        typedQuery.setFirstResult(pagination);
-        List<Expert> resultList = typedQuery.getResultList();
-           return resultList;
+    Tag tag= manager.find(Tag.class,id);
+    System.out.println("----------------------------");
+    System.out.println(tag);
+    System.out.println("----------------------------");
+
+
+
+//    System.out.println("-- find employees with tasks --");
+//    CriteriaBuilder builder = manager.getCriteriaBuilder();
+//    CriteriaQuery<Expert> query = builder.createQuery(Expert.class);
+//    Root<Expert> employee = query.from(Expert.class);
+//    employee.join("expert_tag", JoinType.INNER);
+//    query.select(employee);
+//    query.where(builder.equal(employee.get("id"), id));
+//    TypedQuery<Expert> typedQuery = manager.createQuery(query);
+//    typedQuery.setMaxResults(limite);
+//    typedQuery.setFirstResult(pagination);
+//    List<Expert> resultList = typedQuery.getResultList();
+//    return resultList;
+}
+        return new ArrayList<>();
     }
 
     @Override
     public List<Expert> findAllExpertByPuntuacion(Integer puntuacion, Integer paginacion, Integer limite) {
+
+
+
         if(puntuacion!=null){
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);

@@ -53,5 +53,11 @@ public class Tag {
         this.id = id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

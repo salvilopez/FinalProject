@@ -103,14 +103,18 @@ public class ExpertController {
           return expertService.findAllByNombre(nombre,pagina,limite);
         }else if(estado!=null){
             return expertService.findAllByEstado(estado,pagina,limite);
-        }else if(modalidad!=null){
+        }else
+            if(modalidad!=null){
             return expertService.findAllByModalidad(modalidad,pagina,limite);
-        }else if(etiqueta !=null){
+        }
             //////////////////////////////////////////////////////////////////////////////////////////////////
-            return expertService.findAllExpertByTag(etiqueta,pagina,limite);
+      //  else  if(etiqueta !=null){
+
+          //  return expertService.findAllExpertByTag(etiqueta,pagina,limite);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////
-        }else if(id!=null){
+      //  }
+            else if(id!=null){
             Optional<Expert> expertOpt=expertService.findOneExpertById(id);
             if (expertOpt.isPresent()) {
                 List<Expert> expertList = Arrays.asList(expertOpt.get());

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -79,28 +80,44 @@ public class ExpertController {
      * @return ResponseEntity<List<Expert>>
      */
     @GetMapping("/expertos")
-    public ResponseEntity<List<Expert>> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
+    public List<Expert> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
                                        @RequestParam(name="modalidad", required=false) String modalidad,
                                        @RequestParam(name="id", required=false) Long id,
                                        @RequestParam(name="estado", required=false) String estado,
                                        @RequestParam(name="etiqueta", required=false) Long etiqueta,
                                        @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                        @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite){
+
+
+        System.out.println(nombre);
+        System.out.println(modalidad);
+        System.out.println(id);
+        System.out.println(estado);
+        System.out.println(etiqueta);
+        System.out.println(pagina);
+        System.out.println(limite);
         if(nombre!=null){
-          return ExpertController.controlarOpTList(expertService.findAllByNombre(nombre,pagina,limite));
+          return expertService.findAllByNombre(nombre,pagina,limite);
         }else if(estado!=null){
-            return ExpertController.controlarOpTList(expertService.findAllByEstado(estado,pagina,limite));
+            return expertService.findAllByEstado(estado,pagina,limite);
         }else if(modalidad!=null){
-            return ExpertController.controlarOpTList(expertService.findAllByModalidad(modalidad,pagina,limite));
+            return expertService.findAllByModalidad(modalidad,pagina,limite);
         }else if(etiqueta !=null){
             //////////////////////////////////////////////////////////////////////////////////////////////////
-            return ExpertController.controlarOpTList(expertService.findAllExpertByTag(etiqueta,pagina,limite));
+            return expertService.findAllExpertByTag(etiqueta,pagina,limite);
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////
         }else if(id!=null){
-            return ExpertController.controlarOpTObj(expertService,id);
-        }else{
-            return ResponseEntity.ok().body(expertService.findAllExpert(pagina,limite));
+            Optional<Expert> expertOpt=expertService.findOneExpertById(id);
+            if (expertOpt.isPresent()) {
+                List<Expert> expertList = Arrays.asList(expertOpt.get());
+                return Arrays.asList(expertOpt.get());
+            }
         }
+            if(limite==0)limite=10;
+            System.out.println("por aaqui campeon");
+            return expertService.findAllExpert(pagina,limite);
+
 
     }
 
@@ -164,17 +181,17 @@ public class ExpertController {
 
     }
 
-    /**
-     * Metodo para Controlar los Opcional de Listas
-     * @param optListExpert
-     * @return ResponseEntity<List<Expert>>
-     */
-    private static ResponseEntity<List<Expert>> controlarOpTList(Optional<List<Expert>> optListExpert ){
-        if (optListExpert.isPresent()){
-            return ResponseEntity.ok().body(optListExpert.get());
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-    }
+//    /**
+//     * Metodo para Controlar los Opcional de Listas
+//     * @param optListExpert
+//     * @return ResponseEntity<List<Expert>>
+//     */
+////    private static ResponseEntity<List<Expert>> controlarOpTList(Optional<List<Expert>> optListExpert ){
+////        if (optListExpert.isPresent()){
+////            return ResponseEntity.ok().body(optListExpert.get());
+////        }else{
+////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+////        }
+////
+////    }
 }

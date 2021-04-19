@@ -69,37 +69,31 @@ public class ExpertServiceImpl implements ExpertService {
         repository.deleteAll();
     }
     @Override
-    public Optional<List<Expert>> findAllByNombre(String nombre, Integer pagination, Integer limite) {
+    public List<Expert>findAllByNombre(String nombre, Integer pagination, Integer limite) {
         log.info("findAllByNombre");
-        List<Expert>expertList=expertDao.findAllByNombre(nombre,pagination,limite);
-        if(expertList.isEmpty())
-            return Optional.empty();
-        return Optional.of(expertList);
+      return expertDao.findAllByNombre(nombre,pagination,limite);
+
             }
     @Override
-    public Optional<List<Expert>> findAllByModalidad(String modalidad, Integer pagination, Integer limite) {
+    public List<Expert> findAllByModalidad(String modalidad, Integer pagination, Integer limite) {
         log.info("findAllByModalidad");
-        List<Expert>expertList=expertDao.findAllByModalidad(modalidad,pagination,limite);
-        if(expertList.isEmpty())
-            return Optional.empty();
-        return Optional.of(expertList);
+       return expertDao.findAllByModalidad(modalidad,pagination,limite);
+
     }
     @Override
-    public Optional<List<Expert>> findAllByEstado(String estado, Integer pagination, Integer limite) {
+    public List<Expert> findAllByEstado(String estado, Integer pagination, Integer limite) {
         log.info("findAllByEstado");
-        List<Expert>expertList=expertDao.findAllByModalidad(estado,pagination,limite);
-        if(expertList.isEmpty())
-            return Optional.empty();
-        return Optional.of(expertList);
+        return expertDao.findAllByModalidad(estado,pagination,limite);
+
     }
 
 
     /////////////////////////////////////////////////////////////////////
     @Override
-    public Optional<List<Expert>> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
+    public List<Expert> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
         log.info("findAllExpertByTag");
 
-      return Optional.of(expertDao.findAllExpertByTag(id,pagination,limite));
+      return expertDao.findAllExpertByTag(id,pagination,limite);
     }
 
     /////////////////////////////////////////////////////////////////////

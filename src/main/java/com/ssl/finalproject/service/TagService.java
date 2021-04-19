@@ -2,11 +2,12 @@ package com.ssl.finalproject.service;
 
 import com.ssl.finalproject.model.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public interface TagService {
 
     Optional<List<Tag>> findAllByNombre(String nombre, Integer pagination,Integer limite);

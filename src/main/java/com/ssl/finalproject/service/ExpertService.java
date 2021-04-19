@@ -22,9 +22,9 @@ public interface ExpertService {
 
     Optional<Expert> findOneExpertById(Long id);
     List<Expert> findAllExpert( Integer pagination,Integer limite);
-    Optional<List<Expert>> findAllByNombre(String nombre, Integer pagination,Integer limite);
-    Optional<List<Expert>>  findAllByModalidad(String modalidad, Integer pagination,Integer limite);
-    Optional<List<Expert>>  findAllByEstado(String estado, Integer pagination,Integer limite);
+    List<Expert> findAllByNombre(String nombre, Integer pagination,Integer limite);
+    List<Expert>  findAllByModalidad(String modalidad, Integer pagination,Integer limite);
+   List<Expert>  findAllByEstado(String estado, Integer pagination,Integer limite);
 
-    Optional<List<Expert>> findAllExpertByTag(Long id ,Integer pagination,Integer limite);
+    List<Expert> findAllExpertByTag(Long id ,Integer pagination,Integer limite);
 }

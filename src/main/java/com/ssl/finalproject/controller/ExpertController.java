@@ -1,8 +1,6 @@
 package com.ssl.finalproject.controller;
-
 import com.ssl.finalproject.model.Expert;
 import com.ssl.finalproject.service.ExpertService;
-import com.ssl.finalproject.service.TagService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -11,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -20,65 +17,36 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 public class ExpertController {
 
 
-    private final Logger log = LoggerFactory.getLogger(TagController.class);
+    private final Logger log = LoggerFactory.getLogger(ExpertController.class);
     private final ExpertService expertService;
-    private final TagService tagService;
 
-    public ExpertController(ExpertService expertService, TagService tagService) {
+    public ExpertController(ExpertService expertService) {
         this.expertService = expertService;
-        this.tagService = tagService;
     }
 
-
-    /**
-     * crea una Expert en la BD
-     * @param Expert
-     * @return ResponseEntity<Expert>
-     * @throws URISyntaxException
-     */
     @PostMapping("/expertos")
     public ResponseEntity<Expert> createExpert(@RequestBody Expert expert) throws URISyntaxException {
         log.debug("Create Expert");
         Expert resultado=null;
-        if (expert.getId()!=null) {
+        if (expert.getId()==null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         resultado=expertService.createExpert(expert);
         return  ResponseEntity.created(new URI("/api/expert/"+resultado.getId())).body(resultado);
     }
 
-
-    /**
-     * metodo que modifica un Expert
-     * @param Expert
-     * @return ResponseEntity<Expert>
-     */
-    @PutMapping(value = "/expertos")
+    @PutMapping( "/expertos")
     public ResponseEntity<Expert> modifyExpert(@RequestBody Expert expert) {
         log.debug("Modify Expert");
-        if (expert.getId()==null) {
-            log.error("Error en Modify Tag");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        Expert resultado = expertService.updateExpert(expert);
+    Expert  resultado=expertService.updateExpert(expert);
+        System.out.println(resultado);
         return ResponseEntity.ok().body(resultado);
     }
 
-    /**
-     * Find All  con diferentes filtros y paginacion
-     * @param nombre
-     * @param modalidad
-     * @param id
-     * @param estado
-     * @param etiqueta
-     * @param pagina
-     * @param limite
-     * @return ResponseEntity<List<Expert>>
-     */
     @GetMapping("/expertos")
     public List<Expert> findAllExperts(@RequestParam(name="nombre", required=false) String nombre,
                                        @RequestParam(name="puntuacion", required=false) Integer puntuacion,
@@ -165,7 +133,7 @@ public class ExpertController {
     @ApiOperation(value = "Borra todas los Expert")
     public ResponseEntity<Void> deleteAll() {
         log.debug("DeleteAll");
-        expertService.deleteAllExperts();;
+        expertService.deleteAllExperts();
         return  ResponseEntity.noContent().build();
     }
 
@@ -185,20 +153,6 @@ public class ExpertController {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
-//    /**
-//     * Metodo para Controlar los Opcional de Listas
-//     * @param optListExpert
-//     * @return ResponseEntity<List<Expert>>
-//     */
-////    private static ResponseEntity<List<Expert>> controlarOpTList(Optional<List<Expert>> optListExpert ){
-////        if (optListExpert.isPresent()){
-////            return ResponseEntity.ok().body(optListExpert.get());
-////        }else{
-////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-////        }
-////
-////    }
 }

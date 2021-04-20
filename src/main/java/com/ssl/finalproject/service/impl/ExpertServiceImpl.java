@@ -52,9 +52,7 @@ public class ExpertServiceImpl implements ExpertService {
     }
     @Override
     public Expert updateExpert(Expert expert) {
-        log.info("updateExpert");
-        if ((ObjectUtils.isEmpty(expert)))
-            return null;
+
         return repository.save(expert);
     }
     @Override

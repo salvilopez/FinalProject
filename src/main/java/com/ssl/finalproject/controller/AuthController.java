@@ -1,6 +1,5 @@
 package com.ssl.finalproject.controller;
 
-import com.ssl.finalproject.model.AuthenticationRequest;
 import com.ssl.finalproject.model.AuthenticationResponse;
 import com.ssl.finalproject.model.User;
 import com.ssl.finalproject.security.JWTUtil;
@@ -9,8 +8,6 @@ import com.ssl.finalproject.service.impl.UserDetailsServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ObjectUtils;
@@ -20,8 +17,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
-
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

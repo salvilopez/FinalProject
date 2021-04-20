@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class FinalProjectApplication implements CommandLineRunner {
@@ -36,10 +37,10 @@ public class FinalProjectApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Tag tag1 = new Tag("tag1",Instant.now(),Instant.now());
-        Tag tag2 = new Tag("tag2",Instant.now(),Instant.now());
-        Tag tag3 = new Tag("tag3",Instant.now(),Instant.now());
-        Tag tag4 = new Tag("tag4",Instant.now(),Instant.now());
+        Tag tag1 = new Tag("tag1", LocalDate.now(),LocalDate.now(),"salvi@gmail.com");
+        Tag tag2 = new Tag("tag2",LocalDate.now(),LocalDate.now(),"pepe@@gmail.com");
+        Tag tag3 = new Tag("tag3",LocalDate.now(),LocalDate.now(),"manuel@gmail.com");
+        Tag tag4 = new Tag("tag4",LocalDate.now(),LocalDate.now(),"salvi@gmail.com");
         Expert expert1= new Expert("experto1", Instant.now(),Instant.now(),"estado-motivo1","disponibilidad1","modalidad1",false,111111111,"email1@gmail.com","contacto_ciudad1","contacto_linkedin1",2.0,2.0,90,"nif1","correo1","password1","zoom1","zoom_password1","foto1","fichero1","observaciones1","origen1","validado");
         Expert expert2= new Expert("experto2", Instant.now(),Instant.now(),"estado-motivo1","disponibilidad2","modalidad2",false,222222222,"email2@gmail.com","contacto_ciudad2","contacto_linkedin2",2.0,2.0,90,"nif2","correo2","password2","zoom2","zoom_password2","foto2","fichero2","observaciones2","origen2","validado");
         Expert expert3= new Expert("experto3", Instant.now(),Instant.now(),"estado-motivo1","disponibilidad3","modalidad3",false,333333333,"email3@gmail.com","contacto_ciudad3","contacto_linkedin3",2.0,2.0,90,"nif3","correo3","password3","zoom3","zoom_password3","foto3","fichero3","observaciones3","origen3","pendiente");
@@ -65,7 +66,7 @@ public class FinalProjectApplication implements CommandLineRunner {
         expertRepository.save(expert2);
         expertRepository.save(expert3);
 
-        User user= new User("salvi@gmail.com",encoder.encode("salvi"));
+        User user= new User("salvi@gmail.com",encoder.encode("salvi"),"imagen1");
         userRepository.save(user);
 
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class Tag {
     @Column(name = "nombre",unique = true)
     private String nombre;
 
-    private Instant created_at;
-    private Instant updated_at;
+    private LocalDate created_at;
+    private LocalDate updated_at;
 
     private String creador;
 
@@ -31,7 +32,7 @@ public class Tag {
     public Tag() {
     }
 
-    public Tag(String nombre, Instant created_at, Instant updated_at, String creador) {
+    public Tag(String nombre, LocalDate created_at, LocalDate updated_at, String creador) {
         this.nombre = nombre;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -70,19 +71,19 @@ public class Tag {
         this.id = id;
     }
 
-    public Instant getCreated_at() {
+    public LocalDate getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Instant created_at) {
+    public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
     }
 
-    public Instant getUpdated_at() {
+    public LocalDate getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Instant updated_at) {
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
 

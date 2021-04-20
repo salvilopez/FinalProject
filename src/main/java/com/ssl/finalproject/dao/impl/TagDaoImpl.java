@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,8 @@ public class TagDaoImpl implements TagDao {
         return new ArrayList<>();
     }
 
-
     @Override
-    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
+    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite) {
         if(fechaCreacion!=null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
@@ -72,6 +72,7 @@ public class TagDaoImpl implements TagDao {
         }
         return new ArrayList<>();
     }
+
 
     @Override
     public Tag findTagByID(Long id) {

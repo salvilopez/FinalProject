@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.awt.print.Pageable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -87,8 +88,8 @@ public class TagServiceImpl implements TagService {
         return  tagDao.findAllByCreador(creador,pagination,limite);
     }
     @Override
-    List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite){
-        return  tagDao.findAllByFechaCreacion(fechaCreacion,pagination,limite);
+    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer paginacion, Integer limite){
+        return  tagDao.findAllByFechaCreacion(fechaCreacion,paginacion,limite);
     }
 
     @Override

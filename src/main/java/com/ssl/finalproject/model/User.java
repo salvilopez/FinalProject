@@ -13,14 +13,24 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-
+    @Column(name = "img")
+    private String img;
 
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String img) {
         this.email = email;
         this.password = password;
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Long getId() {

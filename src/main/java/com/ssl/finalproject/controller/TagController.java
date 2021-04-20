@@ -2,7 +2,6 @@ package com.ssl.finalproject.controller;
 
 import com.ssl.finalproject.model.Tag;
 import com.ssl.finalproject.service.TagService;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -20,7 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 @RequestMapping("/api")
 public class TagController {
 
@@ -79,20 +84,22 @@ public class TagController {
      //TODO esto lo pongo como string ya que como es una relacion necesaria para filtrar en el front, y en
      //TODO  los requisitos ni venia el atributo , ni dijeron que habia que hacer la relacion
                                               @RequestParam(name = "creador", required = false) String creador,
-                                              @RequestParam(name = "fechaCreacion", required = false) String fechaCreacion,
+                                              @RequestParam(name = "fechaCreacion", required = false) LocalDate fechaCreacion,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
-                                              @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) {
+                                              @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) throws ParseException {
 
 
 
         if (fechaCreacion != null) {
-            return tagService.findAllByFechaCreacion( fechaCreacion, pagination ,limite);
+
+
+            return tagService.findAllByFechaCreacion( fechaCreacion, pagina ,limite);
 
 
         }else if (creador != null) {
 
-            return tagService.findAllByCreador( creador, pagination ,limite);
+            return tagService.findAllByCreador( creador, pagina ,limite);
 
         }else  if (id != null) {
             Optional<Tag> optTag = tagService.findOneTagById(id);
@@ -100,7 +107,7 @@ public class TagController {
 
         } else if (nombre != null) {
 
-            return tagService.findAllByNombre(nombre, pagina, limite);;
+            return tagService.findAllByNombre(nombre, pagina, limite);
 
         }
             return tagService.findAll(pagina, limite);

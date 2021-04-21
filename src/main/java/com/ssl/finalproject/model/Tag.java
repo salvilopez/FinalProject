@@ -17,11 +17,11 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre",unique = true)
+    @Column(name = "nombre")
     private String nombre;
 
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private Instant created_at;
+    private Instant updated_at;
 
     private String creador;
 
@@ -32,11 +32,19 @@ public class Tag {
     public Tag() {
     }
 
-    public Tag(String nombre, LocalDate created_at, LocalDate updated_at, String creador) {
+    public Tag(String nombre, Instant created_at, Instant updated_at, String creador) {
         this.nombre = nombre;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.creador = creador;
+    }
+
+    public void setCreated_at(Instant created_at) {
+        this.created_at = created_at;
+    }
+
+    public void setUpdated_at(Instant updated_at) {
+        this.updated_at = updated_at;
     }
 
     public String getCreador() {
@@ -71,20 +79,12 @@ public class Tag {
         this.id = id;
     }
 
-    public LocalDate getCreated_at() {
+    public Instant getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
-    }
-
-    public LocalDate getUpdated_at() {
+    public Instant getUpdated_at() {
         return updated_at;
-    }
-
-    public void setUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
     }
 
     @Override

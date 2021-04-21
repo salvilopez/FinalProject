@@ -32,10 +32,6 @@ public class ExpertController {
     public ResponseEntity<Expert> createExpert(@RequestBody Expert expert) throws URISyntaxException {
         log.debug("Create Expert");
         Expert resultado=null;
-        expert.setId(null);
-        if (expert.getId()!=null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         resultado=expertService.createExpert(expert);
         return  ResponseEntity.created(new URI("/api/expert/"+resultado.getId())).body(resultado);
     }

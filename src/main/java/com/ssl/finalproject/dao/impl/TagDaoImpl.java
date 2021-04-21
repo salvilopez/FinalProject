@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.xml.bind.annotation.XmlAnyElement;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -101,6 +102,19 @@ public class TagDaoImpl implements TagDao {
         manager.close();
         return query.getResultList();
     }
+
+    @Override
+    public void deleteTagsFromAllExpert(Long idTag) {
+        if(idTag!=null){
+
+
+            manager.createNativeQuery("delete from expert_tag where tag_id ="+idTag);
+
+        }
+
+
+    }
+
 
 }
 

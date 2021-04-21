@@ -25,5 +25,5 @@ public interface TagService {
     void deleteOneTagById(Long id);
 
     void deleteAllTags();
-
+     void deleteTagByIdForAllExperts(Long tagId);
 }

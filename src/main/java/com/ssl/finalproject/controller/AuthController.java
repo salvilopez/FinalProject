@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

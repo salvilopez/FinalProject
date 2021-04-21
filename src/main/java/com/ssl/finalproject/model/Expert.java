@@ -91,7 +91,7 @@ public class Expert {
     private String estado;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(
             name = "expert_tag",
             joinColumns = {@JoinColumn(name = "expert_id")},

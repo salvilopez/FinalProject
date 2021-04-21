@@ -13,5 +13,5 @@ public interface TagDao {
     List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite);
     Tag findTagByID(Long id);
     List<Tag> findAll(Integer pagination,Integer limite );
-
+    void deleteTagsFromAllExpert(Long idTag );
 }

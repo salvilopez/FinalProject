@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class TagController {
 
 
@@ -134,11 +134,13 @@ public class TagController {
      * @param id
      * @return noContent
      */
-    @DeleteMapping(value = "/etiquetas/{id}")
-    @ApiOperation(value = "Borra un tag por id")
+    @DeleteMapping(value = "/etiquetas/delete/{id}")
     public ResponseEntity<Void> deleteOne(@ApiParam("Clave primaria tags para Eliminarlo") @PathVariable("id") Long id) {
         log.debug("Delete Tag");
-        tagService.deleteOneTagById(id);
+
+        tagService.deleteTagByIdForAllExperts(id);
+        System.out.println("uguguhg");
+        // tagService.deleteOneTagById(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -153,6 +155,7 @@ public class TagController {
     public ResponseEntity<Void> deleteAll() {
         log.debug("DeleteAll");
         tagService.deleteAllTags();
+
         return ResponseEntity.noContent().build();
     }
 

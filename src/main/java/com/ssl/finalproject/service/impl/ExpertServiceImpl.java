@@ -46,7 +46,7 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public Expert createExpert(Expert expert) {
         log.info("createExpert");
-        if (expert!=null)
+        if (expert.getId()!=null)
             return null;
         return repository.save(expert);
     }

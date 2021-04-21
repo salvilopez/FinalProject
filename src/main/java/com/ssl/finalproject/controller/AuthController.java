@@ -56,8 +56,20 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/username/{email}")
+    public ResponseEntity<User> findbyemail(@PathVariable String email) {
+        if (email.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return ResponseEntity.ok().body(userService.findUserByUsername(email));
+        }
+    }
+    @PutMapping("/username")
+    public ResponseEntity<User> editar(@RequestBody User user) {
 
+            return ResponseEntity.ok().body(userService.editarUser(user));
 
+    }
 
 
 }

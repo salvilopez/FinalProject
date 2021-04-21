@@ -28,8 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         log.info("createUser");
-        if(ObjectUtils.isEmpty(user))
-            return null;
 
         if(repository.existsUserByEmail(user.getEmail())){
             return null;
@@ -37,6 +35,20 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
             return repository.save(user);
 
+    }
+
+    @Override
+    public User editarUser(User user) {
+        log.info("editarUser");
+        return repository.save(user);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        if(username.isEmpty())
+        return repository.findUserByEmail(username);
+
+        return null;
     }
 
     @Override

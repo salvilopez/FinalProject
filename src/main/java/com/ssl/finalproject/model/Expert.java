@@ -74,10 +74,10 @@ public class Expert {
     @Column(name = "credenciales_zoom_password")
     private String credenciales_zoom_password;
 
-    @Column(name = "fichero_foto")
+    @Column(name = "fichero_foto",length = 6000)
     private String fichero_foto;
 
-    @Column(name = "fichero_cv")
+    @Column(name = "fichero_cv",length = 6000)
     private String fichero_cv;
 
     @Column(name = "observaciones")

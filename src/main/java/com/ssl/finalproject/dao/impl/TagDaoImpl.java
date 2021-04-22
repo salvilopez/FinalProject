@@ -32,7 +32,7 @@ public class TagDaoImpl implements TagDao {
         criteria.select(root);
         criteria.where(builder.like(root.get("nombre"),nombre+'%'));
         Query query = manager.createQuery(criteria);
-        query.setMaxResults(limite);//size
+        query.setMaxResults(limite);//
         query.setFirstResult(pagination);//pagination
         manager.close();
         return query.getResultList();

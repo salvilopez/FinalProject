@@ -64,11 +64,6 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag createTag(Tag tag) {
         log.info("createTag");
-        if (ObjectUtils.isEmpty(tag))
-            return null;
-
-        if(repository.existsTagByNombre(tag.getNombre()))
-            return null;
 
         return repository.save(tag);
     }

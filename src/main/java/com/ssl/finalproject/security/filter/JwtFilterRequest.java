@@ -43,7 +43,7 @@ public class JwtFilterRequest extends OncePerRequestFilter {
         final String origin = "http://localhost:4200";
 
         response.addHeader("Access-Control-Allow-Origin", origin);
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers",
                 "content-type, x-gwt-module-base, x-gwt-permutation, clientid, longpush");

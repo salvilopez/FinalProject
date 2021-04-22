@@ -44,9 +44,11 @@ public class TagController {
     public ResponseEntity<Tag> createTag(@RequestBody Tag tag) throws URISyntaxException {
         log.debug("Create Task");
         Tag resultado = null;
-        if (tag.getId() != null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        System.out.println("-----------------");
+        System.out.println( tag);
+        System.out.println("-----------------");
+        tag.setId(null);
+
         resultado = tagService.createTag(tag);
         return ResponseEntity.created(new URI("/api/tags/" + resultado.getId())).body(resultado);
     }

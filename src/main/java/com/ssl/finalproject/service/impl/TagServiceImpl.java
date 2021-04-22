@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +89,7 @@ public class TagServiceImpl implements TagService {
         return  tagDao.findAllByCreador(creador,pagination,limite);
     }
     @Override
-    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer paginacion, Integer limite){
+    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer paginacion, Integer limite){
         return  tagDao.findAllByFechaCreacion(fechaCreacion,paginacion,limite);
     }
 

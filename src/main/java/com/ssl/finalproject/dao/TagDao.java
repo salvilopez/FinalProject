@@ -10,7 +10,7 @@ public interface TagDao {
 
     List<Tag> findAllByNombre(String nombre, Integer pagination,Integer limite);
     List<Tag> findAllByCreador(String creador, Integer pagination,Integer limite);
-    List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite);
+    List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite);
     Tag findTagByID(Long id);
     List<Tag> findAll(Integer pagination,Integer limite );
     void deleteTagsFromAllExpert(Long idTag );

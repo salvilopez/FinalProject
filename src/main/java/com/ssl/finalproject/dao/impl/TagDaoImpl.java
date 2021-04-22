@@ -58,7 +58,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite) {
+    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
         if(fechaCreacion!=null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);

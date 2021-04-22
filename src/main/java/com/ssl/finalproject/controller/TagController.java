@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -81,13 +82,13 @@ public class TagController {
      //TODO esto lo pongo como string ya que como es una relacion necesaria para filtrar en el front, y en
      //TODO  los requisitos ni venia el atributo , ni dijeron que habia que hacer la relacion
                                               @RequestParam(name = "creador", required = false) String creador,
-                                              @RequestParam(name = "fechaCreacion", required = false) LocalDate fechaCreacion,
+                                              @RequestParam(name = "fechaCreacion", required = false) Instant fechaCreacion,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                               @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) throws ParseException {
-
-
-
+        System.out.println("--------------");
+        System.out.println(fechaCreacion);
+        System.out.println("--------------");
         if (fechaCreacion != null) {
 
 

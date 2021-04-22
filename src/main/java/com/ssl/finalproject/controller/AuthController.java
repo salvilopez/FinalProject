@@ -58,7 +58,7 @@ public class AuthController {
 
     @GetMapping("/username/{email}")
     public ResponseEntity<User> findbyemail(@PathVariable String email) {
-        if (email.isEmpty()) {
+        if (email!=null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             return ResponseEntity.ok().body(userService.findUserByUsername(email));

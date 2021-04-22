@@ -75,10 +75,14 @@ public class Expert {
     @Column(name = "credenciales_zoom_password")
     private String credenciales_zoom_password;
 
-    @Column(name = "fichero_foto",length = 6000)
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "fichero_foto", columnDefinition = "LONGBLOB")
     private String fichero_foto;
 
-    @Column(name = "fichero_cv",length = 6000)
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "fichero_cv", columnDefinition = "LONGBLOB")
     private String fichero_cv;
 
     @Column(name = "observaciones")

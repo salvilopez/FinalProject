@@ -14,4 +14,6 @@ public interface TagDao {
     Tag findTagByID(Long id);
     List<Tag> findAll(Integer pagination,Integer limite );
     void deleteTagsFromAllExpert(Long idTag );
+
+//    List<Tag> findAllExpertwithFilter(String nombre,String creador, String fechaCreacion,Long id,Integer pagina,Integer limite);
 }

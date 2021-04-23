@@ -26,4 +26,5 @@ public interface TagService {
 
     void deleteAllTags();
      void deleteTagByIdForAllExperts(Long tagId);
+   // List<Tag> findAllExpertwithFilter(String nombre,String creador, String fechaCreacion,Long id,Integer pagina,Integer limite);
 }

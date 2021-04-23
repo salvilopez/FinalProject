@@ -85,7 +85,7 @@ public class TagController {
                                               @RequestParam(name = "fechaCreacion", required = false) Instant fechaCreacion,
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
-                                              @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite) throws ParseException {
+                                              @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite)   {
         System.out.println("--------------");
         System.out.println(fechaCreacion);
         System.out.println("--------------");

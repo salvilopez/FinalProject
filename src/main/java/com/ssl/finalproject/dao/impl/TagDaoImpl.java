@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -59,12 +60,13 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
+        Date dt = Date.from(Instant.now());
         if(fechaCreacion!=null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
             Root<Tag> root = criteria.from(Tag.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("fechaCreacion"),fechaCreacion));
+            criteria.where(builder.equal(root.get("fechaCreacion"),dt));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(pagination);//pagination

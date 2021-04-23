@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) {
-        if(username.isEmpty())
+        if(username!=null)
         return repository.findUserByEmail(username);
 
         return null;
@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean findByEmailAndPassword(String email, String password) {
         log.info("findByUsernameAndPassword");
+
                 if(repository.existsUserByEmail(email)){
                     User user=repository.findUserByEmail(email);
                     return passwordEncoder.matches(password,user.getPassword());

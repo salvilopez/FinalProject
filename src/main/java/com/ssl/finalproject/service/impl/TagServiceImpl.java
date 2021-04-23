@@ -89,7 +89,7 @@ public class TagServiceImpl implements TagService {
         return  tagDao.findAllByCreador(creador,pagination,limite);
     }
     @Override
-    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer paginacion, Integer limite){
+    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer paginacion, Integer limite){
         return  tagDao.findAllByFechaCreacion(fechaCreacion,paginacion,limite);
     }
 

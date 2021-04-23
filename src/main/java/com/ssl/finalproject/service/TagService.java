@@ -15,7 +15,7 @@ public interface TagService {
     List<Tag> findAllByNombre(String nombre, Integer pagination,Integer limite);
     List<Tag> findAll(Integer pagination,Integer limite );
     List<Tag> findAllByCreador(String creador, Integer pagination,Integer limite);
-    List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite);
+    List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite);
     Optional<Tag> findOneTagById(Long id);
 
     Tag createTag(Tag tag);

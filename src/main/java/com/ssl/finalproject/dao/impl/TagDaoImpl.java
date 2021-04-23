@@ -62,18 +62,14 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
+    public List<Tag> findAllByFechaCreacion(LocalDate fechaCreacion, Integer pagination, Integer limite) {
 
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
-        String dateTime = dateTimeFormatter.format(fechaCreacion);
-        Timestamp timestamp = Timestamp.valueOf(dateTime);
         if(fechaCreacion!=null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
             Root<Tag> root = criteria.from(Tag.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("fechaCreacion"),timestamp));
+            criteria.where(builder.equal(root.get("created_at"),fechaCreacion));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(pagination);//pagination

@@ -6,15 +6,13 @@ import com.ssl.finalproject.dao.impl.ExpertDaoImpl;
 import com.ssl.finalproject.model.Expert;
 import com.ssl.finalproject.model.Tag;
 import com.ssl.finalproject.repository.ExpertRepository;
+import com.ssl.finalproject.repository.TagRepository;
 import com.ssl.finalproject.service.ExpertService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ExpertServiceImpl implements ExpertService {
@@ -22,11 +20,13 @@ public class ExpertServiceImpl implements ExpertService {
 
     private final Logger log = LoggerFactory.getLogger(ExpertDaoImpl.class);
     private final ExpertRepository repository;
+    private final TagRepository tagRepository;
     private final ExpertDao expertDao;
     private final TagDao tagDao;
 
-    public ExpertServiceImpl(ExpertRepository repository, ExpertDao expertDao, TagDao tagDao) {
+    public ExpertServiceImpl(ExpertRepository repository, TagRepository tagRepository, ExpertDao expertDao, TagDao tagDao) {
         this.repository = repository;
+        this.tagRepository = tagRepository;
         this.expertDao = expertDao;
         this.tagDao = tagDao;
     }
@@ -94,13 +94,29 @@ public class ExpertServiceImpl implements ExpertService {
 
     /////////////////////////////////////////////////////////////////////
     @Override
-    public List<Expert> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
+    public List<Expert> findAllExpertByTag(String nombreetiqueta, Integer pagination, Integer limite) {
         log.info("findAllExpertByTag");
+        List<Tag>  tagList =tagDao.findTagByNombre(nombreetiqueta);
+    List<Expert>expertList= new ArrayList<>();
+        for (int i = 0; i < tagList.size(); i++) {
+           expertList.addAll(expertDao.findAllExpertByTag(tagList.get(i).getId(),pagination,limite));
+        }
+        //Creamos un objeto HashSet
+        HashSet hs = new HashSet();
 
-      return expertDao.findAllExpertByTag(id,pagination,limite);
+        //Lo cargamos con los valores del array, esto hace quite los repetidos
+        hs.addAll(expertList);
+
+        //Limpiamos el array
+        expertList.clear();
+
+        //Agregamos los valores sin repetir
+        expertList.addAll(hs);
+
+        return expertList;
+
     }
 
-    /////////////////////////////////////////////////////////////////////
     @Override
     public List<Expert> findAllExpert(Integer pagination, Integer limite) {
         log.info("findAllExpert");

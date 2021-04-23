@@ -106,9 +106,5 @@ public class TagServiceImpl implements TagService {
 
         repository.deleteById(tagId);
     }
-/**
-    public List<Tag> findAllExpertwithFilter(String nombre,String creador, String fechaCreacion,Long id,Integer pagina,Integer limite){
 
-        return tagDao.findAllExpertwithFilter(nombre,creador,fechaCreacion,id,pagina,limite);
-    }*/
 }

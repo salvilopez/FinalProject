@@ -4,14 +4,12 @@ import com.ssl.finalproject.dao.ExpertDao;
 import com.ssl.finalproject.model.Expert;
 import com.ssl.finalproject.model.Tag;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,6 @@ public class ExpertDaoImpl implements ExpertDao {
 
     @PersistenceContext
     private EntityManager manager;
-
 
 
     @Override
@@ -59,7 +56,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.like(root.get("nombre"), nombre+'%'));
+            criteria.where(builder.like(root.get("nombre"), nombre + '%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -76,7 +73,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.like(root.get("modalidad"), modalidad+'%'));
+            criteria.where(builder.like(root.get("modalidad"), modalidad + '%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -93,7 +90,7 @@ public class ExpertDaoImpl implements ExpertDao {
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
             criteria.select(root);
-            criteria.where(builder.like(root.get("estado"), estado+'%'));
+            criteria.where(builder.like(root.get("estado"), estado + '%'));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(paginacion);//pagination
@@ -104,29 +101,13 @@ public class ExpertDaoImpl implements ExpertDao {
     }
 
     @Override
-    public List<Expert> findAllExpertByTag(Long id, Integer pagination, Integer limite) {
-if(id!=null){
-
-    Tag tag= manager.find(Tag.class,id);
-    System.out.println("----------------------------");
-    System.out.println(tag);
-    System.out.println("----------------------------");
-
-
-
-//    System.out.println("-- find employees with tasks --");
-//    CriteriaBuilder builder = manager.getCriteriaBuilder();
-//    CriteriaQuery<Expert> query = builder.createQuery(Expert.class);
-//    Root<Expert> employee = query.from(Expert.class);
-//    employee.join("expert_tag", JoinType.INNER);
-//    query.select(employee);
-//    query.where(builder.equal(employee.get("id"), id));
-//    TypedQuery<Expert> typedQuery = manager.createQuery(query);
-//    typedQuery.setMaxResults(limite);
-//    typedQuery.setFirstResult(pagination);
-//    List<Expert> resultList = typedQuery.getResultList();
-//    return resultList;
-}
+    public List<Expert> findAllExpertByTag(Long tagid, Integer pagination, Integer limite) {
+        if (tagid != null) {
+            Query query = manager.createQuery("select c FROM Expert c JOIN c.tagList u WHERE u.id ="+tagid);
+            query.setMaxResults(limite);//size
+            query.setFirstResult(pagination);//pagination
+            return query.getResultList();
+        }
         return new ArrayList<>();
     }
 
@@ -134,8 +115,7 @@ if(id!=null){
     public List<Expert> findAllExpertByPuntuacion(Integer puntuacion, Integer paginacion, Integer limite) {
 
 
-
-        if(puntuacion!=null){
+        if (puntuacion != null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Expert> criteria = builder.createQuery(Expert.class);
             Root<Expert> root = criteria.from(Expert.class);
@@ -149,7 +129,7 @@ if(id!=null){
         }
 
 
-         return new ArrayList<>();
+        return new ArrayList<>();
     }
 }
 

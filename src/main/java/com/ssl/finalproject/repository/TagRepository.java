@@ -9,4 +9,5 @@ import java.awt.print.Pageable;
 @Repository
 public interface TagRepository extends JpaRepository<Tag,Long> {
     Boolean existsTagByNombre(String nombre);
+    Tag findTagByNombre(String nombre);
 }

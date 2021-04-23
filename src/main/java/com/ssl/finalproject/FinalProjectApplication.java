@@ -47,7 +47,6 @@ public class FinalProjectApplication implements CommandLineRunner {
         Expert expert4= new Expert("experto4", Instant.now(),Instant.now(),"estado-motivo1","disponibilidad4","modalidad4",false,444444444,"email4@gmail.com","contacto_ciudad4","contacto_linkedin4",2.0,2.0,90,"nif4","correo4","password4","zoom4","zoom_password4","foto4","fichero4","observaciones4","origen4","validado");
         Expert expert5= new Expert("experto5", Instant.now(),Instant.now(),"estado-motivo1","disponibilidad5","modalidad5",false,555555555,"email5@gmail.com","contacto_ciudad5","contacto_linkedin5",2.0,2.0,90,"nif8","correo5","password5","zoom5","zoom_password5","foto5","fichero5","observaciones5","origen5","estado5");
       //  expert1.getTagList().add(tag1);
-      //  expert2.getTagList().add(tag2);
         expert3.getTagList().add(tag3);
         expert1.getTagList().add(tag1);
         expert2.getTagList().add(tag2);

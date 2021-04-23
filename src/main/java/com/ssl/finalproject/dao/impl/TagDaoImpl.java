@@ -120,52 +120,22 @@ public class TagDaoImpl implements TagDao {
 
     }
 
-   /* @Override
-    public List<Tag> findAllExpertwithFilter(String nombre, String creador, String fechaCreacion, Long id, Integer pagina, Integer limite) {
-
-
+    @Override
+    public List<Tag> findTagByNombre(String nombre) {
+    if(nombre!=null){
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
             Root<Tag> root = criteria.from(Tag.class);
             criteria.select(root);
-                if(nombre==null&&creador==null&&fechaCreacion==null&&id==null){
-                    criteria.select(root);
-                    Query query = manager.createQuery(criteria);
-                    query.setMaxResults(limite);//size
-                    query.setFirstResult(pagina);//pagination
-                    manager.close();
-                    return query.getResultList();
-                }
-            if(nombre!=null){
-                criteria.where(builder.like(root.get("nombre"),nombre+'%'));
-            }
-            if(creador!=null){
-                criteria.where(builder.like(root.get("creador"),creador+'%'));
-            }
-            if(fechaCreacion!=null){
-                LocalDate localDate1 = LocalDate.parse(fechaCreacion, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                criteria.where(builder.equal(root.get("created_at"),localDate1));
-            }
-            if(id!=null){
-                criteria.where(builder.equal(root.get("id"),id));
-                Tag item = manager.createQuery(criteria).getSingleResult();
-                manager.close();
-                List<Tag> tagList= new ArrayList<>();
-                tagList.add(item);
-                return tagList;
-            }
-
-            Query query = manager.createQuery(criteria);
-            query.setMaxResults(limite);//size
-            query.setFirstResult(pagina);//pagination
+            criteria.where(builder.like(root.get("nombre"), nombre+"%"));
             manager.close();
-            return query.getResultList();
-
-    }*/
-
-
-
+            return manager.createQuery(criteria).getResultList();
     }
+    return new ArrayList<>();
+    }
+
+
+}
 
 
 

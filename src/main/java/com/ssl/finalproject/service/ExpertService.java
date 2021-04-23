@@ -26,5 +26,5 @@ public interface ExpertService {
     List<Expert>  findAllByModalidad(String modalidad, Integer pagination,Integer limite);
    List<Expert>  findAllByEstado(String estado, Integer pagination,Integer limite);
 
-    List<Expert> findAllExpertByTag(Long id ,Integer pagination,Integer limite);
+    List<Expert> findAllExpertByTag(String nombreetiqueta ,Integer pagination,Integer limite);
 }

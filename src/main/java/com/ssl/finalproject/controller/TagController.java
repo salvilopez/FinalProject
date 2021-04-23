@@ -109,21 +109,7 @@ public class TagController {
             return tagService.findAll(pagina, limite);
 
     }
-/*
-    @GetMapping("/etiquetas2")
-    public List<Tag> falltags(@RequestParam(name = "nombre", required = false) String nombre,
-                              //TODO esto lo pongo como string ya que como es una relacion necesaria para filtrar en el front, y en
-                              //TODO  los requisitos ni venia el atributo , ni dijeron que habia que hacer la relacion
-                              @RequestParam(name = "creador", required = false) String creador,
-                              @RequestParam(name = "fechaCreacion", required = false) String fechaCreacion,
-                              @RequestParam(name = "id", required = false) Long id,
-                              @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
-                              @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite)   {
 
-      return  tagService.findAllExpertwithFilter( nombre ,creador, fechaCreacion,id,pagina, limite);
-
-
-    }*/
 
 
 

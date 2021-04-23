@@ -65,7 +65,7 @@ public class TagDaoImpl implements TagDao {
     public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
 
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
         String dateTime = dateTimeFormatter.format(fechaCreacion);
         Timestamp timestamp = Timestamp.valueOf(dateTime);
         if(fechaCreacion!=null) {

@@ -10,8 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.xml.bind.annotation.XmlAnyElement;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,13 +63,17 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> findAllByFechaCreacion(Instant fechaCreacion, Integer pagination, Integer limite) {
-        Date dt = Date.from(Instant.now());
+
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+        String dateTime = dateTimeFormatter.format(fechaCreacion);
+        Timestamp timestamp = Timestamp.valueOf(dateTime);
         if(fechaCreacion!=null) {
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<Tag> criteria = builder.createQuery(Tag.class);
             Root<Tag> root = criteria.from(Tag.class);
             criteria.select(root);
-            criteria.where(builder.equal(root.get("fechaCreacion"),dt));
+            criteria.where(builder.equal(root.get("fechaCreacion"),timestamp));
             Query query = manager.createQuery(criteria);
             query.setMaxResults(limite);//size
             query.setFirstResult(pagination);//pagination

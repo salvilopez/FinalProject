@@ -41,6 +41,7 @@ public class TagController {
      * @return ResponseEntity<Tag>
      * @throws URISyntaxException
      */
+    @ApiOperation(value = "metodo para crear una tag")
     @PostMapping("/etiquetas")
     public ResponseEntity<Tag> createTag(@RequestBody Tag tag) throws URISyntaxException {
         log.debug("Create Task");
@@ -58,6 +59,7 @@ public class TagController {
      * @param tag
      * @return ResponseEntity<Tag>
      */
+    @ApiOperation(value = "metodo para modificar una tag")
     @PutMapping(value = "/etiquetas")
     public ResponseEntity<Tag> modifyTag(@RequestBody Tag tag) {
         log.debug("Modify Tag");
@@ -68,12 +70,22 @@ public class TagController {
         Tag resultado = tagService.updateTag(tag);
         return ResponseEntity.ok().body(resultado);
     }
+    @ApiOperation(value = "metodo para modificar una tagporid")
+    @PutMapping(value = "/etiquetas/{id}")
+    public ResponseEntity<Tag> modifyTagporID(@RequestBody Tag tag,@PathVariable Long id) {
+        log.debug("Modify Tag");
+        if (id == null)   return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
+        tag.setId(id);
+        Tag resultado = tagService.updateTag(tag);
+        return ResponseEntity.ok().body(resultado);
+    }
     /**
      * Metodo que devuelve una lista de de etiquetas
      *
      * @return List<Tag>
      */
+    @ApiOperation(value = "metodos de filtros de  una tag")
     @GetMapping("/etiquetas")
     public List<Tag> findTags(@RequestParam(name = "nombre", required = false) String nombre,
      //TODO esto lo pongo como string ya que como es una relacion necesaria para filtrar en el front, y en
@@ -83,28 +95,18 @@ public class TagController {
                                               @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "pagina", required = false, defaultValue = "0") Integer pagina,
                                               @RequestParam(name = "limite", required = false, defaultValue = "10") Integer limite)   {
-
         if (fechaCreacion != null) {
-
             LocalDate localDate1 = LocalDate.parse(fechaCreacion, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return tagService.findAllByFechaCreacion(localDate1, pagina ,limite);
-
-
         }else if (creador != null) {
-
             return tagService.findAllByCreador( creador, pagina ,limite);
-
         }else  if (id != null) {
             Optional<Tag> optTag = tagService.findOneTagById(id);
-            List<Tag> tagList = Arrays.asList(optTag.get());
-
+            return  Arrays.asList(optTag.get());
         } else if (nombre != null) {
-
             return tagService.findAllByNombre(nombre, pagina, limite);
-
         }
             return tagService.findAll(pagina, limite);
-
     }
 
 
@@ -116,6 +118,7 @@ public class TagController {
      * @param id
      * @return ResponseEntity<Tag>
      */
+    @ApiOperation(value = "metodo para encontrar un tag por id")
     @GetMapping("/etiquetas/{id}")
     public ResponseEntity<Tag> findOneTag(@PathVariable Long id) {
         log.debug("Rest request a Tag with id: " + id);
@@ -132,12 +135,11 @@ public class TagController {
      * @param id
      * @return noContent
      */
+    @ApiOperation(value = "metodo para eliminar una etiqueta y todos los Experts que contiene")
     @DeleteMapping(value = "/etiquetas/delete/{id}")
     public ResponseEntity<Void> deleteOne(@ApiParam("Clave primaria tags para Eliminarlo") @PathVariable("id") Long id) {
         log.debug("Delete Tag");
-
         tagService.deleteTagByIdForAllExperts(id);
-        System.out.println("uguguhg");
         // tagService.deleteOneTagById(id);
         return ResponseEntity.noContent().build();
     }

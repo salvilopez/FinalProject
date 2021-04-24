@@ -92,7 +92,12 @@ public class AuthController {
         if (email==null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            return ResponseEntity.ok().body(userService.findUserByUsername(email));
+            User user=userService.findUserByUsername(email);
+            if(user==null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            return ResponseEntity.ok().body(user);
         }
     }
     @PutMapping("/username")

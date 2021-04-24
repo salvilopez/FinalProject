@@ -30,6 +30,9 @@ public class ExpertController {
         this.expertService = expertService;
     }
 
+
+
+    @ApiOperation(value = "metodo para crear un experto")
     @PostMapping("/expertos")
     public ResponseEntity<Expert> createExpert(@RequestBody Expert expert) throws URISyntaxException {
         log.debug("Create Expert");
@@ -38,14 +41,23 @@ public class ExpertController {
         return ResponseEntity.created(new URI("/api/expert/" + resultado.getId())).body(resultado);
     }
 
+    @ApiOperation(value = "metodo para modificar un experto")
     @PutMapping("/expertos")
     public ResponseEntity<Expert> modifyExpert(@RequestBody Expert expert) {
         log.debug("Modify Expert");
         Expert resultado = expertService.updateExpert(expert);
-        System.out.println(resultado);
         return ResponseEntity.ok().body(resultado);
     }
-
+    @ApiOperation(value = "metodo para modificar un experto usando el id")
+    @PutMapping("/expertos/{id}")
+    public ResponseEntity<Expert> modifyExpertporId(@RequestBody Expert expert,@PathVariable Long id) {
+        log.debug("Modify Expert");
+        if(id==null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        expert.setId(id);
+        Expert resultado = expertService.updateExpert(expert);
+        return ResponseEntity.ok().body(resultado);
+    }
+    @ApiOperation(value = "metodo para filtrar los expertos")
     @GetMapping("/expertos")
     public List<Expert> findAllExperts(@RequestParam(name = "nombre", required = false) String nombre,
                                        @RequestParam(name = "puntuacion", required = false) Integer puntuacion,
@@ -64,7 +76,6 @@ public class ExpertController {
             return expertService.findAllByModalidad(modalidad, pagina, limite);
         }  else if (etiqueta != null) {
             return  expertService.findAllExpertByTag(etiqueta, pagina, limite);
-
         }
         if (limite == 0) limite = 10;
         return expertService.findAllExpert(pagina, limite);
@@ -77,6 +88,7 @@ public class ExpertController {
      * @param id
      * @return ResponseEntity<Expert>
      */
+    @ApiOperation(value = "metodo para encontrar un un experto por id")
     @GetMapping("/expertos/{id}")
     public ResponseEntity<Expert> findOneExpert(@PathVariable Long id) {
         log.debug("Rest request a Expert with id: " + id);
@@ -124,6 +136,7 @@ public class ExpertController {
      * @param id
      * @return ResponseEntity<List < Expert>>
      */
+    @ApiIgnore
     private static ResponseEntity<List<Expert>> controlarOpTObj(ExpertService service, Long id) {
         Optional<Expert> expertOpt = service.findOneExpertById(id);
         if (expertOpt.isPresent()) {

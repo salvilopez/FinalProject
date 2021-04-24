@@ -13,16 +13,31 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "img")
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "img", columnDefinition = "LONGBLOB")
     private String img;
+
+
+    private String nombre;
 
     public User() {
     }
 
-    public User(String email, String password, String img) {
+    public User(String email, String password, String img, String nombre) {
         this.email = email;
         this.password = password;
         this.img = img;
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getImg() {

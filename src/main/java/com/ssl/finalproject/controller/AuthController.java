@@ -49,10 +49,11 @@ public class AuthController {
 
     @PostMapping("/registro")
     public ResponseEntity<User> registro(@RequestBody User user) {
-        if (ObjectUtils.isEmpty(user)) {
+        if (user==null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            return ResponseEntity.ok().body(userService.createUser(user));
+            User userCreado=userService.createUser(user);
+            return ResponseEntity.ok().body(userCreado);
         }
     }
 

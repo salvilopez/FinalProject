@@ -1,6 +1,7 @@
 package com.ssl.finalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -16,81 +17,106 @@ public class Expert {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(" id de un experto")
     private Long id;
 
+    @ApiModelProperty(" nombre de experto")
     @Column(name = "nombre")
     private String nombre;
 
+    @ApiModelProperty(" fecha creacion de experto")
     @Column(name = "created_at")
     private Instant created_at;
 
+    @ApiModelProperty(" fecha de actualizacion de experto")
     @Column(name = "updated_at")
     private Instant updated_at;
-////*******************************************************+++++++++++++++++++++++++++++++++++++++++++++
-@Column(name = "estado_motivo")
+
+@ApiModelProperty(" fecha de estado_motivo  de experto")
+    @Column(name = "estado_motivo")
     private String estado_motivo;
-////*******************************************************+++++++++++++++++++++++++++++++++++++++++++++
-@Column(name = "disponibilidad")
+
+@ApiModelProperty(" lista de disponibilidad de experto")
+    @Column(name = "disponibilidad")
    private String disponibilidad;
 
+    @ApiModelProperty(" modalidad de experto")
     @Column(name = "modalidad")
     private String modalidad;
 
+    @ApiModelProperty(" booleano de es autonomo de experto")
     @Column(name = "autonomo")
     private Boolean autonomo;
 
+    @ApiModelProperty(" contacto de telefono de experto")
     @Column(name = "contacto_telefono")
     private Integer contacto_telefono;
 
+    @ApiModelProperty(" contacto de email de experto")
     @Column(name = "contacto_email")
     private String contacto_email;
 
+    @ApiModelProperty(" contacto de ciudad  de experto")
     @Column(name = "contacto_ciudad")
    private String contacto_ciudad;
 
+    @ApiModelProperty(" contacto linkedin de experto")
     @Column(name = "contacto_linkedin")
    private String contacto_linkedin;
 
+    @ApiModelProperty("condiciones_porcentaje de experto")
     @Column(name = "condiciones_porcentaje")
    private Double condiciones_porcentaje;
 
+    @ApiModelProperty(" condiciones_precio_hora de experto")
     @Column(name = "condiciones_precio_hora")
     private Double condiciones_precio_hora;
 
+    @ApiModelProperty(" puntuacion de experto")
     @Column(name = "puntuacion")
     private Integer puntuacion;
 
+    @ApiModelProperty(" nif de experto")
     @Column(name = "nif")
     private String nif;
 
+    @ApiModelProperty(" credenciales_correo de experto")
     @Column(name = "credenciales_correo")
     private String credenciales_correo;
 
+    @ApiModelProperty(" credenciales_correo_password de experto")
     @Column(name = "credenciales_correo_password")
     private String credenciales_correo_password;
 
+    @ApiModelProperty(" fecha de actualizacion de experto")
     @Column(name = "credenciales_zoom")
     private String credenciales_zoom;
 
+    @ApiModelProperty(" credenciales_zoom de experto")
     @Column(name = "credenciales_zoom_password")
     private String credenciales_zoom_password;
 
+    @ApiModelProperty(" fichero_foto de experto")
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "fichero_foto", columnDefinition = "LONGBLOB")
     private String fichero_foto;
 
+    @ApiModelProperty(" fichero_cv de experto")
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "fichero_cv", columnDefinition = "LONGBLOB")
     private String fichero_cv;
 
+    @ApiModelProperty(" observaciones de experto")
     @Column(name = "observaciones")
     private String observaciones;
 
+    @ApiModelProperty(" origen de experto")
     @Column(name = "origen")
     private String origen;
 
+    @ApiModelProperty(" estado de experto")
     @Column(name = "estado")
     private String estado;
 
@@ -101,6 +127,7 @@ public class Expert {
             joinColumns = {@JoinColumn(name = "expert_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
+    @ApiModelProperty(" lista de etiquetas")
     @JsonIgnoreProperties("expertList")
     private List<Tag> tagList= new ArrayList<>();
 

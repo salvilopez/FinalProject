@@ -1,25 +1,26 @@
 package com.ssl.finalproject.controller;
 
 import com.ssl.finalproject.model.AuthenticationResponse;
+import com.ssl.finalproject.model.EmailUser;
 import com.ssl.finalproject.model.User;
 import com.ssl.finalproject.security.JWTUtil;
 import com.ssl.finalproject.service.UserService;
+import com.ssl.finalproject.service.impl.EnvioEmailService;
 import com.ssl.finalproject.service.impl.UserDetailsServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
-
+    private final EnvioEmailService envioEmailService;
     private final AuthenticationManager authenticationManager;
     private final DaoAuthenticationProvider daoAuthenticationProvider;
     private final UserDetailsServiceImpl userDetailsService;
@@ -27,7 +28,8 @@ public class AuthController {
     private final JWTUtil jwtUtil;
 
 
-    public AuthController(AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil) {
+    public AuthController(EnvioEmailService envioEmailService, AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil) {
+        this.envioEmailService = envioEmailService;
         this.authenticationManager = authenticationManager;
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.userDetailsService = userDetailsService;
@@ -53,9 +55,37 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             User userCreado=userService.createUser(user);
+
+            if(userCreado==null){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             return ResponseEntity.ok().body(userCreado);
         }
     }
+
+
+
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Void> passolvidada(@PathVariable  String email) throws URISyntaxException {
+        if(userService.existsEmail(email)){
+
+            User user=userService.findUserByUsername(email);
+
+            //TODO LA Contraseña se envia cifrada por que no he encontrado descifrarla , hay un metodo que las compara
+            //TODO  pero no las descifra
+                    envioEmailService.sendEmail(email,"Redordatorio de Contraseña de "+email,"Le enviamos su Contraseña  \n contraseña: "+user.getPassword());
+                return new  ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+
+    }
+
+
+
+
 
     @GetMapping("/username/{email}")
     public ResponseEntity<User> findbyemail(@PathVariable String email) {

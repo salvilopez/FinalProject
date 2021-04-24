@@ -1,6 +1,7 @@
 package com.ssl.finalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,18 +16,24 @@ public class Tag {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(" id de etiqueta")
     private Long id;
 
     @Column(name = "nombre")
+    @ApiModelProperty(" nombre de etiqueta")
     private String nombre;
 
+    @ApiModelProperty(" fecha creacion etiqueta")
     private LocalDate created_at;
+
+    @ApiModelProperty(" fecha actualizacion etiqueta")
     private LocalDate updated_at;
 
+    @ApiModelProperty(" nombre creador de la etiqueta")
     private String creador;
 
+    @ApiModelProperty(" lista de expertos de etiqueta")
     @ManyToMany(mappedBy = "tagList", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    //@JsonIgnoreProperties("tagList")
     private List<Expert> expertList = new ArrayList<>();
 
     public Tag() {

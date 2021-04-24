@@ -1,5 +1,7 @@
 package com.ssl.finalproject.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,18 +10,24 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty("id user")
     private Long id;
+
+    @ApiModelProperty(" email de usuario")
     @Column(name = "email",unique = true)
     private String email;
+
+    @ApiModelProperty(" password  de usuario")
     @Column(name = "password")
     private String password;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    @ApiModelProperty(" img de usuario")
     @Column(name = "img", columnDefinition = "LONGBLOB")
     private String img;
 
-
+    @ApiModelProperty(" nombre de usuario")
     private String nombre;
 
     public User() {

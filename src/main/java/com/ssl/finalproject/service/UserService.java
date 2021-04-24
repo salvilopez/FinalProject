@@ -8,4 +8,5 @@ public interface UserService {
     User editarUser(User user);
     User findUserByUsername(String username);
     Boolean findByEmailAndPassword(String email , String password);
+    boolean existsEmail(String email);
 }

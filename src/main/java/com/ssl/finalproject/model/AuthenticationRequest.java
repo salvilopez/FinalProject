@@ -1,10 +1,14 @@
 package com.ssl.finalproject.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class AuthenticationRequest {
 
-private String username;
+    @ApiModelProperty("username authentication Request")
+    private String username;
 
-private String password;
+    @ApiModelProperty(" email  authentication Request")
+    private String password;
 
 
 

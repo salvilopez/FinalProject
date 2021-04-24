@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) {
+        log.info("findUserByUsername");
         if(username!=null)
         return repository.findUserByEmail(username);
 
@@ -57,6 +58,13 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public boolean existsEmail(String email) {
+        log.info("existsEmail");
+        if(email!=null) return repository.existsUserByEmail(email);
+
+        return false;
+    }
 
 
 }

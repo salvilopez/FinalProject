@@ -130,7 +130,7 @@ public class TagController {
     }
 
     /**
-     * method delete User by ID
+     * method delete etiquetas by ID
      *
      * @param id
      * @return noContent

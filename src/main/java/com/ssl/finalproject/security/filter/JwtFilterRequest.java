@@ -40,7 +40,7 @@ public class JwtFilterRequest extends OncePerRequestFilter {
                 }
             }
         }
-        final String origin = "https://proyecto-ingenia-angular-biq7cnytj-salvilopez.vercel.app";
+        final String origin = "*";
 
         response.addHeader("Access-Control-Allow-Origin", origin);
         response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE, OPTIONS");

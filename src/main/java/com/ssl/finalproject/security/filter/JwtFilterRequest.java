@@ -40,9 +40,9 @@ public class JwtFilterRequest extends OncePerRequestFilter {
                 }
             }
         }
-        final String origin = "https://proyecto-ingenia-angular-q244qy7ff-salvilopez.vercel.app";
+        //final String origin = "https://proyecto-ingenia-angular-q244qy7ff-salvilopez.vercel.app";
 
-        response.addHeader("Access-Control-Allow-Origin", origin);
+      //  response.addHeader("Access-Control-Allow-Origin", origin);
         response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers",

@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "https://elegant-neumann-1077c6.netlify.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@CrossOrigin(origins = "https://brave-almeida-fa9757.netlify.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
     private final EnvioEmailService envioEmailService;
     private final AuthenticationManager authenticationManager;

@@ -22,7 +22,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://jovial-dubinsky-f4c2c4.netlify.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@CrossOrigin(origins = "https://elegant-neumann-1077c6.netlify.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class TagController {
 
 

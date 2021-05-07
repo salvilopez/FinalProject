@@ -104,8 +104,9 @@ public class AuthController {
      User userR = userService.findUserByUsername(user.getEmail());
      userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);
-        envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña  \n contraseña: "+resultado.getPassword());
-        return ResponseEntity.ok().body(resultado);
+       //TODO Mirar envio de email ya que da fallo , seguramente sea de la configuracion del gmail
+      envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña  \n contraseña: "+resultado.getPassword());
+        return new  ResponseEntity<>(HttpStatus.OK);
 
     }
 

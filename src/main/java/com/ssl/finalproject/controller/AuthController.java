@@ -1,7 +1,6 @@
 package com.ssl.finalproject.controller;
 
 import com.ssl.finalproject.model.AuthenticationResponse;
-import com.ssl.finalproject.model.EmailUser;
 import com.ssl.finalproject.model.User;
 import com.ssl.finalproject.security.JWTUtil;
 import com.ssl.finalproject.service.UserService;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -26,15 +26,17 @@ public class AuthController {
     private final UserDetailsServiceImpl userDetailsService;
     private final UserService userService;
     private final JWTUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public AuthController(EnvioEmailService envioEmailService, AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil) {
+    public AuthController(EnvioEmailService envioEmailService, AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil, PasswordEncoder passwordEncoder) {
         this.envioEmailService = envioEmailService;
         this.authenticationManager = authenticationManager;
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/login")
@@ -66,7 +68,7 @@ public class AuthController {
 
 
 
-    @GetMapping("/email/{email}")
+   /** @GetMapping("/email/{email}")
     public ResponseEntity<Void> passolvidada(@PathVariable  String email) throws URISyntaxException {
         if(userService.existsEmail(email)){
 
@@ -81,11 +83,27 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
 
+    }*/
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Boolean> checkearEmailPassOlvidada(@PathVariable  String email) throws URISyntaxException {
+    if(userService.existsEmail(email)){
+        return ResponseEntity.ok().body(true);
+    }
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
     }
 
+    @PostMapping("/newpass")
+    public ResponseEntity<User> crearnewPass(@RequestBody User user) throws URISyntaxException {
+
+        User userR = userService.findUserByUsername(user.getEmail());
+        userR.setPassword(passwordEncoder.encode(user.getPassword()));
+        User resultado =userService.editarUser(userR);
+        return ResponseEntity.ok().body(resultado);
 
 
-
+    }
 
     @GetMapping("/username/{email}")
     public ResponseEntity<User> findbyemail(@PathVariable String email) {

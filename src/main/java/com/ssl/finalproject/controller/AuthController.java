@@ -86,11 +86,11 @@ public class AuthController {
     }*/
 
     @GetMapping("/email/{email}")
-    public Boolean checkearEmailPassOlvidada(@PathVariable  String email) throws URISyntaxException {
+    public ResponseEntity<Boolean> checkearEmailPassOlvidada(@PathVariable  String email) throws URISyntaxException {
     if(userService.existsEmail(email)){
-        return true;
+        return ResponseEntity.ok().body(true);
     }
-    return false;
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
     }
 

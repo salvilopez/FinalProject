@@ -102,7 +102,7 @@ public class AuthController {
     public ResponseEntity<User> crearnewPass(@RequestBody AuthenticationRequest user) throws URISyntaxException {
 
      User userR = userService.findUserByUsername(user.getUsername());
-        //userR.setPassword(passwordEncoder.encode(user.getPassword()));
+     userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);
         envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña  \n contraseña: "+resultado.getPassword());
         return ResponseEntity.ok().body(resultado);

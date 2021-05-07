@@ -7,6 +7,7 @@ import com.ssl.finalproject.security.JWTUtil;
 import com.ssl.finalproject.service.UserService;
 import com.ssl.finalproject.service.impl.EnvioEmailService;
 import com.ssl.finalproject.service.impl.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +28,9 @@ public class AuthController {
     private final UserDetailsServiceImpl userDetailsService;
     private final UserService userService;
     private final JWTUtil jwtUtil;
-    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+   PasswordEncoder passwordEncoder;
 
 
     public AuthController(EnvioEmailService envioEmailService, AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil, PasswordEncoder passwordEncoder) {
@@ -37,7 +40,7 @@ public class AuthController {
         this.userDetailsService = userDetailsService;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
-        this.passwordEncoder = passwordEncoder;
+
     }
 
     @PostMapping("/login")

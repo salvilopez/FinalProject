@@ -99,12 +99,12 @@ public class AuthController {
     }
 
     @PostMapping("/newpass")
-    public ResponseEntity<User> crearnewPass(@RequestBody AuthenticationRequest user) throws URISyntaxException {
+    public ResponseEntity<User> crearnewPass(@RequestBody User user) throws URISyntaxException {
 
-     User userR = userService.findUserByUsername(user.getUsername());
+     User userR = userService.findUserByUsername(user.getEmail());
      userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);
-        envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña  \n contraseña: "+resultado.getPassword());
+        //envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña  \n contraseña: "+resultado.getPassword());
         return ResponseEntity.ok().body(resultado);
 
     }

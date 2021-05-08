@@ -20,10 +20,8 @@ import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/auth")
-//@CrossOrigin(origins = "https://proyecto-ingenia-angular-eight.vercel.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-
-@CrossOrigin(origins = "http://localhost:4200", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-
+@CrossOrigin(origins = "https://proyecto-ingenia-angular-eight.vercel.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+//@CrossOrigin(origins = "http://localhost:4200", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
     private final EnvioEmailService envioEmailService;
     private final AuthenticationManager authenticationManager;
@@ -68,29 +66,12 @@ public class AuthController {
             if(userCreado==null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+            envioEmailService.sendEmail(userCreado.getEmail(),"Registro realizado correctamente  ","Registro correcto,  Logueate Con tus Credenciales para Iniciar Sesión");
             return ResponseEntity.ok().body(userCreado);
         }
     }
 
 
-
-
-   /** @GetMapping("/email/{email}")
-    public ResponseEntity<Void> passolvidada(@PathVariable  String email) throws URISyntaxException {
-        if(userService.existsEmail(email)){
-
-            User user=userService.findUserByUsername(email);
-
-            //TODO LA Contraseña se envia cifrada por que no he encontrado descifrarla , hay un metodo que las compara
-            //TODO  pero no las descifra
-                    envioEmailService.sendEmail(email,"Redordatorio de Contraseña de "+email,"Le enviamos su Contraseña  \n contraseña: "+user.getPassword());
-                return new  ResponseEntity<>(HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
-
-    }*/
 
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkearEmailPassOlvidada(@PathVariable  String email) throws URISyntaxException {

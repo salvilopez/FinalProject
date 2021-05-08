@@ -66,7 +66,7 @@ public class AuthController {
             if(userCreado==null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            envioEmailService.sendEmail(userCreado.getEmail(),"Registro realizado correctamente  ","Registro correcto,  Logueate Con tus Credenciales para Iniciar Sesión");
+            envioEmailService.sendEmail(user.getEmail(),"Registro realizado correctamente  ","Registro correcto,  Logueate Con tus Credenciales para Iniciar Sesión");
             return ResponseEntity.ok().body(userCreado);
         }
     }

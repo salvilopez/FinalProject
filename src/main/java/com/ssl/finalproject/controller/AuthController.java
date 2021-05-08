@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "https://proyecto-ingenia-angular-eight.vercel.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+//@CrossOrigin(origins = "http://localhost:8081", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
     private final EnvioEmailService envioEmailService;
     private final AuthenticationManager authenticationManager;

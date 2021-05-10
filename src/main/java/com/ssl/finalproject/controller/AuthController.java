@@ -83,14 +83,11 @@ public class AuthController {
 
     @PostMapping("/newpass")
     public ResponseEntity<User> crearnewPass(@RequestBody User user) {
-
      User userR = userService.findUserByUsername(user.getEmail());
      userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);
-       //TODO Mirar envio de email ya que da fallo , seguramente sea de la configuracion del gmail
       envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña \n contraseña: "+user.getPassword());
         return new  ResponseEntity<>(HttpStatus.OK);
-
     }
 
     @GetMapping("/username/{email}")

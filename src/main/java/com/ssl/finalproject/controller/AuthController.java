@@ -1,7 +1,6 @@
 package com.ssl.finalproject.controller;
 
-import com.sparkpost.exception.SparkPostException;
-import com.ssl.finalproject.model.AuthenticationRequest;
+
 import com.ssl.finalproject.model.AuthenticationResponse;
 import com.ssl.finalproject.model.User;
 import com.ssl.finalproject.security.JWTUtil;

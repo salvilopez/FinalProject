@@ -42,7 +42,7 @@ public class JwtFilterRequest extends OncePerRequestFilter {
             }
         }
 
-      response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE");
+      response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE,OPTIONS");
       response.setHeader("Access-Control-Allow-Credentials", "true");
       response.setHeader("Access-Control-Allow-Headers",
                         "content-type, x-gwt-module-base, x-gwt-permutation, clientid, longpush");

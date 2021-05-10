@@ -21,10 +21,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new User("salvi","{noop}salvi", new ArrayList<>());
     }
 
-    public UserDetails loadUserByEmailEncript(String email,String password) throws UsernameNotFoundException {
+   /* public UserDetails loadUserByEmailEncript(String email,String password) throws UsernameNotFoundException {
 
         return new User(email, "{noop}email", new ArrayList<>());
-    }
+    }*/
 
 
 

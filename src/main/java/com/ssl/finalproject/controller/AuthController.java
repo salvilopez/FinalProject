@@ -44,7 +44,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody User user) {
         if (userService.findByEmailAndPassword(user.getEmail(), user.getPassword())) {
-            UserDetails userDetails = userDetailsService.loadUserByEmailEncript(user.getEmail(), user.getPassword());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
             String jwt = jwtUtil.generateToken(userDetails);
             return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
         }

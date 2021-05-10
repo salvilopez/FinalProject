@@ -26,7 +26,7 @@ public class JwtFilterRequest extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader("Authorization");
 
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer")) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Jwt = ")) {
             String jwt = authorizationHeader.substring(7);
             String username = jwtUtil.extractUsername(jwt);
 
@@ -41,13 +41,11 @@ public class JwtFilterRequest extends OncePerRequestFilter {
                 }
             }
         }
-        //final String origin = "https://proyecto-ingenia-angular-q244qy7ff-salvilopez.vercel.app";
 
-      //  response.addHeader("Access-Control-Allow-Origin", origin);
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE, OPTIONS");
+       response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT,DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers",
-                "content-type, x-gwt-module-base, x-gwt-permutation, clientid, longpush");
-        filterChain.doFilter(request, response);
+              "content-type, x-gwt-module-base, x-gwt-permutation, clientid, longpush");
+filterChain.doFilter(request, response);
     }
 }

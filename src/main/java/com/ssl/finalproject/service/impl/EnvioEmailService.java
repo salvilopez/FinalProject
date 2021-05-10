@@ -13,7 +13,7 @@ public class EnvioEmailService {
     private JavaMailSender mailSender;
 
     //Pasamos por parametro: destinatario, asunto y el mensaje
-    public void sendEmail(String to, String subject, String content) throws SparkPostException {
+    public void sendEmail(String to, String subject, String content) {
 
     /*    SimpleMailMessage email = new SimpleMailMessage();
 
@@ -27,11 +27,15 @@ public class EnvioEmailService {
         String API_KEY = "d6ee8bd2b437eb96f4d635fbebd9a570588aa1e2";
         Client client = new Client(API_KEY);
 
-        client.sendMessage(
-                "salvilopezpum@gmail.com",
-                to,
-                subject,
-                content,
-                "");
+        try {
+            client.sendMessage(
+                    "salvilopezpum@gmail.com",
+                    to,
+                    subject,
+                    content,
+                    "");
+        } catch (SparkPostException e) {
+            e.printStackTrace();
+        }
     }
 }

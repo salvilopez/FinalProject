@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        return new User("salvi","{noop}salvi", new ArrayList<>());
+        return new User(s,"{noop}"+s, new ArrayList<>());
     }
 
    /* public UserDetails loadUserByEmailEncript(String email,String password) throws UsernameNotFoundException {

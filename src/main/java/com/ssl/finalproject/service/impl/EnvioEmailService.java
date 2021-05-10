@@ -12,13 +12,10 @@ public class EnvioEmailService {
 
     //Pasamos por parametro: destinatario, asunto y el mensaje
     public void sendEmail(String to, String subject, String content) {
-
         SimpleMailMessage email = new SimpleMailMessage();
-
         email.setTo(to);
         email.setSubject(subject);
         email.setText(content);
-
         mailSender.send(email);
     }
 

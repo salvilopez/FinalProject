@@ -20,7 +20,6 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "https://proyecto-ingenia-angular-eight.vercel.app", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-//@CrossOrigin(origins = "http://localhost:8081", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class AuthController {
     private final EnvioEmailService envioEmailService;
     private final AuthenticationManager authenticationManager;
@@ -31,7 +30,6 @@ public class AuthController {
 
     @Autowired
    PasswordEncoder passwordEncoder;
-
 
     public AuthController(EnvioEmailService envioEmailService, AuthenticationManager authenticationManager, DaoAuthenticationProvider daoAuthenticationProvider, UserDetailsServiceImpl userDetailsService, UserService userService, JWTUtil jwtUtil, PasswordEncoder passwordEncoder) {
         this.envioEmailService = envioEmailService;
@@ -45,23 +43,19 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody User user) {
-
         if (userService.findByEmailAndPassword(user.getEmail(), user.getPassword())) {
             UserDetails userDetails = userDetailsService.loadUserByEmailEncript(user.getEmail(), user.getPassword());
             String jwt = jwtUtil.generateToken(userDetails);
             return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-
     @PostMapping("/registro")
     public ResponseEntity<User> registro(@RequestBody User user) {
         if (user==null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             User userCreado=userService.createUser(user);
-
             if(userCreado==null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -70,23 +64,20 @@ public class AuthController {
         }
     }
 
-
-
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkearEmailPassOlvidada(@PathVariable  String email) throws URISyntaxException {
-    if(userService.existsEmail(email)){
-        return ResponseEntity.ok().body(true);
-    }
+        if(userService.existsEmail(email)){
+            return ResponseEntity.ok().body(true);
+        }
     return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
     }
 
     @PostMapping("/newpass")
     public ResponseEntity<User> crearnewPass(@RequestBody User user) {
-     User userR = userService.findUserByUsername(user.getEmail());
-     userR.setPassword(passwordEncoder.encode(user.getPassword()));
-       User resultado =userService.editarUser(userR);
-      envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña \n contraseña: "+user.getPassword());
+        User userR = userService.findUserByUsername(user.getEmail());
+        userR.setPassword(passwordEncoder.encode(user.getPassword()));
+        User resultado =userService.editarUser(userR);
+        envioEmailService.sendEmail(resultado.getEmail(),"Redordatorio de Contraseña de "+resultado.getEmail(),"Le enviamos su Contraseña \n contraseña: "+user.getPassword());
         return new  ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -99,15 +90,12 @@ public class AuthController {
             if(user==null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-
             return ResponseEntity.ok().body(user);
         }
     }
     @PutMapping("/username")
     public ResponseEntity<User> editar(@RequestBody User user) {
-
-            return ResponseEntity.ok().body(userService.editarUser(user));
-
+       return ResponseEntity.ok().body(userService.editarUser(user));
     }
 
 

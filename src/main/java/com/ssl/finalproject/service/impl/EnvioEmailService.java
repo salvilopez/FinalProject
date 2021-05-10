@@ -28,7 +28,7 @@ public class EnvioEmailService {
         Client client = new Client(API_KEY);
 
         client.sendMessage(
-                "salvilopezronda@gmail.com",
+                "salvilopezpum@gmail.com",
                 to,
                 subject,
                 content,

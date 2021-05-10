@@ -1,5 +1,6 @@
 package com.ssl.finalproject.controller;
 
+import com.sparkpost.exception.SparkPostException;
 import com.ssl.finalproject.model.AuthenticationRequest;
 import com.ssl.finalproject.model.AuthenticationResponse;
 import com.ssl.finalproject.model.User;
@@ -56,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<User> registro(@RequestBody User user) {
+    public ResponseEntity<User> registro(@RequestBody User user) throws SparkPostException {
         if (user==null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
@@ -82,7 +83,7 @@ public class AuthController {
     }
 
     @PostMapping("/newpass")
-    public ResponseEntity<User> crearnewPass(@RequestBody User user) {
+    public ResponseEntity<User> crearnewPass(@RequestBody User user) throws SparkPostException {
      User userR = userService.findUserByUsername(user.getEmail());
      userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);

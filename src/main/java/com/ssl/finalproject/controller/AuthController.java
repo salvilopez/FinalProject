@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<User> registro(@RequestBody User user) throws SparkPostException {
+    public ResponseEntity<User> registro(@RequestBody User user) {
         if (user==null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
@@ -83,7 +83,7 @@ public class AuthController {
     }
 
     @PostMapping("/newpass")
-    public ResponseEntity<User> crearnewPass(@RequestBody User user) throws SparkPostException {
+    public ResponseEntity<User> crearnewPass(@RequestBody User user) {
      User userR = userService.findUserByUsername(user.getEmail());
      userR.setPassword(passwordEncoder.encode(user.getPassword()));
        User resultado =userService.editarUser(userR);

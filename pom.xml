@@ -58,6 +58,8 @@
             <version>5.8.0-M1</version>
             <scope>test</scope>
         </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -75,7 +77,10 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <!-- ========== Mail ========== -->
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.sparkpost</groupId>
             <artifactId>sparkpost-lib</artifactId>

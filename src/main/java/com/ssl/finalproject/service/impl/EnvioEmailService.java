@@ -23,21 +23,5 @@ public class EnvioEmailService {
 
         mailSender.send(email);
     }
-    //Pasamos por parametro: destinatario, asunto y el mensaje
-    public void sendEmail2(String to, String subject, String content) {
 
-        String API_KEY = "d6ee8bd2b437eb96f4d635fbebd9a570588aa1e2";
-        Client client = new Client(API_KEY);
-
-        try {
-            client.sendMessage(
-                    "salvilopezpum@gmail.com",
-                    to,
-                    subject,
-                    content,
-                    "");
-        } catch (SparkPostException e) {
-            e.printStackTrace();
-        }
-    }
 }

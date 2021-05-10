@@ -81,11 +81,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-        <!-- <dependency>
-            <groupId>com.sparkpost</groupId>
-            <artifactId>sparkpost-lib</artifactId>
-            <version>0.23</version>
-        </dependency> -->
     </dependencies>
 
     <build>

@@ -1,7 +1,5 @@
 package com.ssl.finalproject.service.impl;
 
-import com.sparkpost.Client;
-import com.sparkpost.exception.SparkPostException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
